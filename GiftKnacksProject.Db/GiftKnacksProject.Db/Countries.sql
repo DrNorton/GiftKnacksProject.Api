@@ -1,6 +1,0 @@
-﻿CREATE TABLE [dbo].[Countries]
-(
-	Id NVARCHAR(2) NOT NULL,
-	Name NVARCHAR(64) NOT NULL, 
-    PRIMARY KEY (Id)
-)
