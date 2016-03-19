@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="06c9e8a618134ed88f8fcf8c73470beb" Name="Diagram1" ZoomLevel="90">
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.Comment" Width="1.5" PointX="3" PointY="25.875" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.Contact" Width="1.5" PointX="5.25" PointY="7.75" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.ContactType" Width="1.5" PointX="3" PointY="4.125" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.Country" Width="1.5" PointX="0.75" PointY="8" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.GiftLinkComment" Width="1.5" PointX="5.25" PointY="19.375" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.Gift" Width="1.5" PointX="3" PointY="11.875" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.GiftWishStatus" Width="1.5" PointX="0.75" PointY="18" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.Profile" Width="1.5" PointX="3" PointY="7.125" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.Reference" Width="1.5" PointX="3" PointY="16.75" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.User" Width="1.5" PointX="0.75" PointY="13.125" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.WishCategory" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.Wish" Width="1.5" PointX="6" PointY="12.25" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.WishGiftLink" Width="1.5" PointX="8.25" PointY="13.5" />
+        <EntityTypeShape EntityType="GiftKnacks_dbModel.WishLinkComment" Width="1.5" PointX="8.25" PointY="19.625" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_CommentLink" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_CommentLinkG" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Comments_Comments_Parent" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Comments_ToUsers" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_ContactsTypes_ToContacts" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Users_ToContacts" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Gifts_Countries" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Profiles_Countries" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Wishes_Countries" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_GiftLink" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Gifts_GiftWishStatuses" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Gifts_Users" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_WishGiftLinks_Gifts" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Wishes_GiftWishStatuses" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Profiles_USERS" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_References_OwnerUserId" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_References_ReplyUserId" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Wishes_Users" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Wishes_Users_Closer" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_WishGiftLinks_Users" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Parent_WishCategories" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_Wishes_Categories" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_WishGiftLinks_Wishes" />
+        <AssociationConnector Association="GiftKnacks_dbModel.FK_WishLink" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

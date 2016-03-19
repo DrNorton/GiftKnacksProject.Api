@@ -1,0 +1,15 @@
+﻿Generated model file: EfModel.edmx.
+Loading metadata from the database took 00:00:03.2212096.
+Generating the model took 00:00:24.3612998.
+Generated model file: EfModel.edmx.
+Loading metadata from the database took 00:00:01.6829862.
+Generating the model took 00:00:01.1296815.
+Generated model file: EfModel.edmx.
+Loading metadata from the database took 00:00:00.9954574.
+Generating the model took 00:00:00.8488108.
+Generated model file: EfModel.edmx.
+Loading metadata from the database took 00:00:01.4706358.
+Generating the model took 00:00:15.5623999.
+Generated model file: EfModel.edmx.
+Loading metadata from the database took 00:00:01.3326594.
+Generating the model took 00:00:01.1305159.
