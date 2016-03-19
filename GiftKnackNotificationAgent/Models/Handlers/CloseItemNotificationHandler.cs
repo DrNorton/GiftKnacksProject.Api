@@ -43,6 +43,8 @@ namespace GiftKnackNotificationAgent.Models.Handlers
                 wishOrGiftDto = await _wishRepository.GetBasicInfo(messageFromQueue.ClosedItemId);
             }
 
+
+
             if (messageFromQueue.TargetType == "gift")
             {
                 participants = await _giftRepository.GetAllParticipants(messageFromQueue.ClosedItemId);
