@@ -27,6 +27,7 @@ namespace GiftKnackNotificationAgent
             _realTimePushNotificationService = realTimePushNotificationService;
         }
 
+
         public  async Task ProcessQueueMessage([ServiceBusTrigger("notifications")] BrokeredMessage message,
       TextWriter logger)
         {
