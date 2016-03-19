@@ -23,7 +23,6 @@ namespace GiftKnacksProject.Api
             var config = new HttpConfiguration();
             var container = ConfigureWindsor(GlobalConfiguration.Configuration);
             ConfigureOAuth(app, container);
-      
             GlobalConfiguration.Configure(c => WebApiConfig.Register(c, container));
            
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
