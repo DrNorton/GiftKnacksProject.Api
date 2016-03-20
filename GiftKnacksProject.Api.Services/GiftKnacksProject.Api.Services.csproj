@@ -106,10 +106,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GiftKnackProject.NotificationTypes\GiftKnackProject.NotificationTypes.csproj">
-      <Project>{3f187808-0a0b-4a30-8927-ee2819fb08e3}</Project>
-      <Name>GiftKnackProject.NotificationTypes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GiftKnacksProject.Api.Dao\GiftKnacksProject.Api.Dao.csproj">
       <Project>{ff0fa806-2745-4d30-93ba-e1fd8c171d21}</Project>
       <Name>GiftKnacksProject.Api.Dao</Name>
@@ -121,6 +117,10 @@
     <ProjectReference Include="..\GiftKnacksProject.Api.Helpers\GiftKnacksProject.Api.Helpers.csproj">
       <Project>{4d2c2555-f671-4268-b729-980ee1fd07d9}</Project>
       <Name>GiftKnacksProject.Api.Helpers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Workers\GiftKnackProject.NotificationTypes\GiftKnackProject.NotificationTypes.csproj">
+      <Project>{3f187808-0a0b-4a30-8927-ee2819fb08e3}</Project>
+      <Name>GiftKnackProject.NotificationTypes</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

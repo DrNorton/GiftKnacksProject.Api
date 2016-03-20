@@ -270,6 +270,7 @@
     <Content Include="Scripts\jquery-2.2.1.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -327,10 +328,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <ProjectReference Include="..\GiftKnackProject.NotificationTypes\GiftKnackProject.NotificationTypes.csproj">
-      <Project>{3f187808-0a0b-4a30-8927-ee2819fb08e3}</Project>
-      <Name>GiftKnackProject.NotificationTypes</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GiftKnacksProject.Api.Dependencies\GiftKnacksProject.Api.Dependencies.csproj">
       <Project>{d08aa878-ea84-423a-bb89-1c67ddadc275}</Project>
       <Name>GiftKnacksProject.Api.Dependencies</Name>
@@ -366,6 +363,10 @@
     <PreBuildEvent>
     </PreBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>"$(MSBUILDBINPATH)\msbuild" "$(ProjectPath)" /t:Transform /p:Configuration=$(ConfigurationName);Platform=AnyCPU
+xcopy "$(ProjectDir)obj\$(ConfigurationName)\Web.Config" "$(ProjectDir)". /F /R /Y</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -373,4 +374,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <Target Name="Transform">
+    <MakeDir Directories="obj\$(Configuration)" Condition="!Exists('obj\$(Configuration)')" />
+    <TransformXml Source="Web.Config" Transform="Web.$(Configuration).config" Destination="obj\$(Configuration)\Web.config" StackTrace="true" />
+  </Target>
 </Project>

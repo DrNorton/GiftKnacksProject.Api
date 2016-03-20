@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnackNotificationAgent", "GiftKnackNotificationAgent.csproj", "{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnackAgentCore", "..\GiftKnackAgentCore\GiftKnackAgentCore.csproj", "{153730D7-C316-492B-B4F5-23D280D93879}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnackProject.NotificationTypes", "..\GiftKnackProject.NotificationTypes\GiftKnackProject.NotificationTypes.csproj", "{3F187808-0A0B-4A30-8927-EE2819FB08E3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnacksProject.Api.Dao", "..\..\GiftKnacksProject.Api.Dao\GiftKnacksProject.Api.Dao.csproj", "{FF0FA806-2745-4D30-93BA-E1FD8C171D21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnacksProject.Api.Dto", "..\..\GiftKnacksProject.Api.Dto\GiftKnacksProject.Api.Dto.csproj", "{CA6F7446-8C7F-4909-9A02-2203565598C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnacksProject.Api.EfDao", "..\..\GiftKnacksProject.Api.EfDao\GiftKnacksProject.Api.EfDao.csproj", "{722E5D82-F83E-43D7-AF6F-DD1D16DE2741}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnacksProject.Api.Helpers", "..\..\GiftKnacksProject.Api.Helpers\GiftKnacksProject.Api.Helpers.csproj", "{4D2C2555-F671-4268-B729-980EE1FD07D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F187808-0A0B-4A30-8927-EE2819FB08E3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F187808-0A0B-4A30-8927-EE2819FB08E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F187808-0A0B-4A30-8927-EE2819FB08E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F187808-0A0B-4A30-8927-EE2819FB08E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF0FA806-2745-4D30-93BA-E1FD8C171D21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF0FA806-2745-4D30-93BA-E1FD8C171D21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF0FA806-2745-4D30-93BA-E1FD8C171D21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF0FA806-2745-4D30-93BA-E1FD8C171D21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA6F7446-8C7F-4909-9A02-2203565598C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA6F7446-8C7F-4909-9A02-2203565598C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA6F7446-8C7F-4909-9A02-2203565598C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA6F7446-8C7F-4909-9A02-2203565598C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{722E5D82-F83E-43D7-AF6F-DD1D16DE2741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{722E5D82-F83E-43D7-AF6F-DD1D16DE2741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{722E5D82-F83E-43D7-AF6F-DD1D16DE2741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{722E5D82-F83E-43D7-AF6F-DD1D16DE2741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4D2C2555-F671-4268-B729-980EE1FD07D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4D2C2555-F671-4268-B729-980EE1FD07D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4D2C2555-F671-4268-B729-980EE1FD07D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4D2C2555-F671-4268-B729-980EE1FD07D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
