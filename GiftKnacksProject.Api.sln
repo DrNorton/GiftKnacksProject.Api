@@ -23,6 +23,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnacksProject.Api.Servi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnackProject.NotificationTypes", "Workers\GiftKnackProject.NotificationTypes\GiftKnackProject.NotificationTypes.csproj", "{3F187808-0A0B-4A30-8927-EE2819FB08E3}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workers", "Workers", "{D3016519-C8C8-412A-981F-481EADC063AE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnackNotificationAgent", "Workers\GiftKnackNotificationAgent\GiftKnackNotificationAgent.csproj", "{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnackMessageAgent", "Workers\GiftKnackMessageAgent\GiftKnackMessageAgent.csproj", "{B12199A7-10FB-4CF5-971D-06C098F94EF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GiftKnackAgentCore", "Workers\GiftKnackAgentCore\GiftKnackAgentCore.csproj", "{153730D7-C316-492B-B4F5-23D280D93879}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,11 +73,26 @@ Global
 		{3F187808-0A0B-4A30-8927-EE2819FB08E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F187808-0A0B-4A30-8927-EE2819FB08E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F187808-0A0B-4A30-8927-EE2819FB08E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B12199A7-10FB-4CF5-971D-06C098F94EF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B12199A7-10FB-4CF5-971D-06C098F94EF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B12199A7-10FB-4CF5-971D-06C098F94EF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B12199A7-10FB-4CF5-971D-06C098F94EF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{153730D7-C316-492B-B4F5-23D280D93879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D08AA878-EA84-423A-BB89-1C67DDADC275} = {2282BB18-8427-4FFC-B3D4-E5801CD4F54D}
+		{266ABCBF-E13A-45F6-9805-6C4FFE0DF327} = {D3016519-C8C8-412A-981F-481EADC063AE}
+		{B12199A7-10FB-4CF5-971D-06C098F94EF9} = {D3016519-C8C8-412A-981F-481EADC063AE}
+		{153730D7-C316-492B-B4F5-23D280D93879} = {D3016519-C8C8-412A-981F-481EADC063AE}
 	EndGlobalSection
 EndGlobal
