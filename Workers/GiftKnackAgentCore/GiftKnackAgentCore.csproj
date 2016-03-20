@@ -58,14 +58,14 @@
     <Compile Include="Services\RealTimePushNotificationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\GiftKnackProject.NotificationTypes\GiftKnackProject.NotificationTypes.csproj">
       <Project>{3f187808-0a0b-4a30-8927-ee2819fb08e3}</Project>
       <Name>GiftKnackProject.NotificationTypes</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
