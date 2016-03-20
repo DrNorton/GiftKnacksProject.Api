@@ -17,8 +17,8 @@ namespace GiftKnackNotificationAgent.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var endpointUrl = ConfigurationManager.AppSettings["EndPointUrl"];
-            var authorizationKey = ConfigurationManager.AppSettings["AuthorizationKey"];
+            var endpointUrl = ConfigurationManager.AppSettings["DocumentDbEndpointUrl"];
+            var authorizationKey = ConfigurationManager.AppSettings["DocumentDbAuthorizationKey"];
           
             container.Register(
                 Component.For<DocumentClient>()

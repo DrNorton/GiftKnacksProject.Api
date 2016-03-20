@@ -20,8 +20,8 @@ namespace GiftKnackMessageAgent.Installers
             container.Register(Component.For<Functions>().LifestyleTransient());
 
             container.Register(Component.For<IChatMessageFromMqProcessor>().ImplementedBy<ChatMessageFromMqProcessor>().LifestyleTransient());
-            var endpointUrl = ConfigurationManager.AppSettings["EndPointUrl"];
-            var authorizationKey = ConfigurationManager.AppSettings["AuthorizationKey"];
+            var endpointUrl = ConfigurationManager.AppSettings["DocumentDbEndpointUrl"];
+            var authorizationKey = ConfigurationManager.AppSettings["DocumentDbAuthorizationKey"];
             container.Register(
                 Component.For<DocumentClient>().UsingFactoryMethod((kernel, parameters) => new DocumentClient(new Uri(endpointUrl), authorizationKey)).LifestyleTransient());
 

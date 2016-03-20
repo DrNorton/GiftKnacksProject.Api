@@ -23,8 +23,8 @@ namespace GiftKnacksProject.Api.Dependencies.Installers
     {
         public void Install(Castle.Windsor.IWindsorContainer container, Castle.MicroKernel.SubSystems.Configuration.IConfigurationStore store)
         {
-            var endpointUrl = ConfigurationManager.AppSettings["EndPointUrl"];
-            var authorizationKey = ConfigurationManager.AppSettings["AuthorizationKey"];
+            var endpointUrl = ConfigurationManager.AppSettings["DocumentDbEndpointUrl"];
+            var authorizationKey = ConfigurationManager.AppSettings["DocumentDbAuthorizationKey"];
             container.Register(
                 Component.For<DocumentClient>().UsingFactoryMethod((kernel,parameters)=>new DocumentClient(new Uri(endpointUrl),authorizationKey)).LifestyleTransient());
 
