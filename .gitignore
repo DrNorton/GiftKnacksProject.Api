@@ -175,4 +175,4 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
-/GiftKnacksProject.Api/Web.Debug.config
+
