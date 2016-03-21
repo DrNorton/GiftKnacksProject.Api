@@ -32,5 +32,16 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             }
             return SuccessApiResult(list);
         }
+
+
+        [System.Web.Http.Route("test")]
+        [System.Web.Http.HttpGet]
+        public async Task<IHttpActionResult> Test()
+        {
+            return SuccessApiResult("test");
+        }
+
+
+        
     }
 }
