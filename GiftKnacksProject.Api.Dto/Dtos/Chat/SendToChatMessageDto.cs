@@ -9,7 +9,6 @@ namespace GiftKnacksProject.Api.Dto.Dtos.Chat
     public class SendToChatMessageDto
     {
        public long To { get; set; }
-       public long From { get; set; }
        public string Message { get; set; }
     }
 }

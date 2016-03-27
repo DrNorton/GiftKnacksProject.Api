@@ -11,7 +11,7 @@ namespace GiftKnacksProject.Api.Services.Interfaces
     public interface IChatMessageService
     {
         Task SendMessageToQueue(ChatMqMessage mqMessage);
-        Task<List<DialogDto>> GetDialogs(long userId);
+        Task<DialogsResultDto> GetDialogs(long userId);
         Task<List<MessageFromDialog>> GetMessagesFromDialog(long user1, long user2);
     }
 }

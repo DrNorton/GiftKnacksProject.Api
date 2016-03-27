@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using GiftKnackProject.NotificationTypes;
 using GiftKnacksProject.Api.Controllers.ApiResults;
 using GiftKnacksProject.Api.Controllers.Models;
@@ -16,6 +17,7 @@ using Microsoft.AspNet.Identity;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/reference")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ReferenceController:CustomApiController
     {
         private readonly IReferenceRepository _referenceRepository;

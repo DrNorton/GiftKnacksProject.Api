@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using GiftKnackProject.NotificationTypes.ProcessedNotifications;
 using GiftKnacksProject.Api.Controllers.ApiResults;
 using GiftKnacksProject.Api.Controllers.Hubs;
@@ -15,6 +16,7 @@ using Newtonsoft.Json.Linq;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/push")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class RealTimePushController : CustomApiController
     {
         private readonly IUserOnlineSignalService _userOnlineSignalService;

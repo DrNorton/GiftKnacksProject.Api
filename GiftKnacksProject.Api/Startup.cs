@@ -56,7 +56,7 @@ namespace GiftKnacksProject.Api
             //// Token Generation
             app.UseOAuthAuthorizationServer(container.Resolve<OAuthAuthorizationServerOptions>());
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-
+           
         }
 
         public static IWindsorContainer ConfigureWindsor(HttpConfiguration configuration)

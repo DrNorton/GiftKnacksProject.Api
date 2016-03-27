@@ -36,12 +36,12 @@ namespace GiftKnacksProject.Api.Services.Services.ChatMessages
             return _queueClient.SendAsync(message);
         }
 
-        public async Task<List<DialogDto>> GetDialogs(long userId)
+        public async Task<DialogsResultDto> GetDialogs(long userId)
           {
             var database = await RetrieveOrCreateDatabaseAsync(DatabaseId);
             var collection = await RetrieveOrCreateCollectionAsync(database.SelfLink, "lastmessages");
             var data = _databaseClient.CreateDocumentQuery<LastMessageDocumentDbSchema>(collection.DocumentsLink).Where(x => x.Recepient == userId ||x.Sender==userId).OrderByDescending(x => x.Time).ToList();
-            return await CreateDialogsList(data);
+            return await CreateDialogsList(data,userId);
            
         }
 
@@ -72,26 +72,44 @@ namespace GiftKnacksProject.Api.Services.Services.ChatMessages
                     Message = message.Message,
                     Time = message.Time,
                     Recepient = message.Recepient,
-                    Sender = message.Sender
+                    Sender = message.Sender,IsRead = message.IsRead
                 });
             }
 
             return resultMessages;
         }
 
-        private async Task<List<DialogDto>> CreateDialogsList(IEnumerable<LastMessageDocumentDbSchema> messages)
+        private async Task<DialogsResultDto> CreateDialogsList(IEnumerable<LastMessageDocumentDbSchema> messages,long ownerId)
         {
-            var dialogs = new List<DialogDto>();
+            var dialogs = new List<DialogItemInListDto>();
             var usersIds=new List<long>();
             usersIds.AddRange(messages.Select(x => x.Recepient));
             usersIds.AddRange(messages.Select(x => x.Sender));
+            usersIds = usersIds.Distinct().ToList();
             var profiles= await _profileRepository.GetTinyProfiles(usersIds);
             foreach (var message in messages)
             {
-                dialogs.Add(new DialogDto() {LastMessage = message.LastMessage,Recipient = profiles.FirstOrDefault(x=>x.Id==message.Recepient),Sender = profiles.FirstOrDefault(x=>x.Id==message.Sender),Time = message.Time});
+                var resultDialog = new DialogItemInListDto()
+                {
+                    LastMessage =
+                        new LastMessage() {Text = message.LastMessage, Time = message.Time, UserId = message.Sender},
+                    IsRead = message.IsRead
+                };
+              
+                if (message.Sender == ownerId)
+                {
+                    //я отправитель последнего
+                    resultDialog.Opponent = profiles.FirstOrDefault(x => x.Id == message.Recepient);
+                }
+                else
+                {
+                    //не я отправлял последнее сообщение
+                    resultDialog.Opponent = profiles.FirstOrDefault(x => x.Id == message.Sender);
+                }
+                dialogs.Add(resultDialog);
             }
 
-            return dialogs;
+            return new DialogsResultDto() {Owner = profiles.FirstOrDefault(x=>x.Id==ownerId),Dialogs = dialogs};
 
         }
 

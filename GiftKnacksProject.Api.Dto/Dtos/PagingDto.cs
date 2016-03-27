@@ -9,7 +9,7 @@ namespace GiftKnacksProject.Api.Dto.Dtos
     public class PagingDto
     {
         private int _offset=0;
-        private int _length=10;
+        private int _length=0;
 
         public int Offset
         {

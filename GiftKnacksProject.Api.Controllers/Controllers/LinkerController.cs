@@ -16,7 +16,7 @@ using Microsoft.AspNet.Identity;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/linker")]
-    [EnableCors(origins: "http://giftknackapi.azurewebsites.net", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class LinkerController:CustomApiController
     {
         private readonly ILinkRepository _linkRepository;

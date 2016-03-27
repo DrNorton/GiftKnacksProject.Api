@@ -8,7 +8,7 @@ namespace GiftKnacksProject.Api.Dto.Dtos.Chat
 {
     public class GetDialogDto
     {
-        public long User1 { get; set; }
-        public long User2 { get; set; }
+        public long Recipient { get; set; }
+      
     }
 }

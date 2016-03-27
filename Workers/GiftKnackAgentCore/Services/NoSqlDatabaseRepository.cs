@@ -58,7 +58,7 @@ namespace GiftKnackAgentCore.Services
                 LastMessage = message.Message,
                 Recepient = message.To,
                 Sender = message.From,
-                Time=DateTime.Now
+                Time=DateTime.Now,IsRead = true
             };
 
             try
@@ -83,7 +83,9 @@ namespace GiftKnackAgentCore.Services
                 Message = messagefromMq.Message,
                 Recepient = messagefromMq.To,
                 Sender = messagefromMq.From,
-                Time = DateTime.Now
+                Time = DateTime.Now,
+                IsRead = true
+                
             };
 
             await _client.UpsertDocumentAsync(collection.DocumentsLink, message);

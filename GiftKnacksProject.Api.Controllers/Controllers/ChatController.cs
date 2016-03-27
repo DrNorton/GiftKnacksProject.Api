@@ -7,22 +7,26 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using GiftKnackProject.NotificationTypes.Chat;
 using GiftKnacksProject.Api.Controllers.ApiResults;
+using GiftKnacksProject.Api.Dao.Repositories;
 using GiftKnacksProject.Api.Dto.Dtos.Chat;
 using GiftKnacksProject.Api.Dto.Dtos.Gifts;
 using GiftKnacksProject.Api.Services.Interfaces;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json.Linq;
 
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/Chat")]
-    [EnableCors(origins: "http://giftknackapi.azurewebsites.net", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class ChatController : CustomApiController
     {
         private readonly IChatMessageService _chatMessageService;
+        private readonly IProfileRepository _profileRepository;
 
-        public ChatController(IChatMessageService chatMessageService)
+        public ChatController(IChatMessageService chatMessageService,IProfileRepository profileRepository)
         {
             _chatMessageService = chatMessageService;
+            _profileRepository = profileRepository;
         }
 
         [System.Web.Http.Authorize]
@@ -31,11 +35,10 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         public async Task<IHttpActionResult> Send(SendToChatMessageDto newChatMessage)
         {
             var currentUser = long.Parse(User.Identity.GetUserId());
-            newChatMessage.From = currentUser;
             await
                 _chatMessageService.SendMessageToQueue(new ChatMqMessage()
                 {
-                    From = newChatMessage.From, 
+                    From = currentUser, 
                     Message = newChatMessage.Message,
                     To = newChatMessage.To
                 });
@@ -61,8 +64,26 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         public async Task<IHttpActionResult> GetMessagesFromDialog(GetDialogDto getdialogs)
         {
             var currentUser = long.Parse(User.Identity.GetUserId());
-            var dialogList = await _chatMessageService.GetMessagesFromDialog(getdialogs.User1,getdialogs.User2);
-            return SuccessApiResult(dialogList);
+            var dialogList = await _chatMessageService.GetMessagesFromDialog(currentUser, getdialogs.Recipient);
+            if (dialogList.Any())
+            {
+                var profiles= await _profileRepository.GetTinyProfiles(new List<long>() {currentUser, getdialogs.Recipient});
+                var members=new JObject();
+                foreach (var profile in profiles)
+                {
+                    members.Add(profile.Id.ToString(),
+                        new JObject()
+                        {
+                            new JProperty("FirstName", profile.FirstName),
+                            new JProperty("LastName", profile.LastName),
+                            new JProperty("AvatarUrl", profile.AvatarUrl)
+                        });
+                }
+                return SuccessApiResult(new DialogWithMessagesDto() {Members = members, Messages = dialogList});
+
+            }
+            return SuccessApiResult(new DialogWithMessagesDto() { });
+
         }
 
     }

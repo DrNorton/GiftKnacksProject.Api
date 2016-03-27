@@ -19,7 +19,7 @@ using Microsoft.AspNet.Identity;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/gift")]
-    [EnableCors(origins: "http://giftknackapi.azurewebsites.net", headers: "*", methods: "*")]
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class GiftController:CustomApiController
     {
         private readonly IGiftRepository _giftRepository;

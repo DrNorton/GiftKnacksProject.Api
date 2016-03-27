@@ -56,11 +56,18 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 {
                     query.Where(x => (x.FromDate <= filter.To) && (x.FromDate >= filter.From));
                 }
+
+
             }
 
-
-
-            query=query.OrderBy(x=>x.Name).Skip(filter.Offset).Take(filter.Length);
+            if (filter.Length != 0)
+            {
+                query = query.OrderBy(x => x.Name).Skip(filter.Offset).Take(filter.Length);
+            }
+            else
+            {
+                query = query.OrderBy(x => x.Name);
+            }
         
             return query.Select(x => new GiftDto()
             {

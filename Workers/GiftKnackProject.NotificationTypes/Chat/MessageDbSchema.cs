@@ -9,6 +9,7 @@ namespace GiftKnackProject.NotificationTypes.Chat
 {
     public class MessageDbSchema
     {
+        public bool IsRead { get; set; }
         public string DialogId
         {
             get
