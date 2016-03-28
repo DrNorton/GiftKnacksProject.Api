@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using GiftKnackProject.NotificationTypes.ProcessedNotifications;
@@ -11,9 +12,9 @@ namespace GiftKnackAgentCore.Services
     {
         private RestClient _restClient;
 
-        public RealTimePushNotificationService()
+        public RealTimePushNotificationService(string baseUrl)
         {
-            _restClient=new RestClient("http://giftknackapi.azurewebsites.net/api/push/send");
+            _restClient=new RestClient(String.Format("{0}/api/push/send",baseUrl));
         }
 
         public async Task SentRealTimeMessages(IEnumerable<Notification> notifications)

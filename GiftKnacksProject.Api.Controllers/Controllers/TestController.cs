@@ -12,7 +12,7 @@ using GiftKnacksProject.Api.Dto.Dtos.Reference;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/test")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     public class TestController:CustomApiController
     {
         public TestController()
@@ -32,6 +32,10 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             {
                list.Add(new Tuple<string, string>(sett, settings.Get(sett)));
             }
+            var strings = ConfigurationManager.ConnectionStrings;
+
+            
+
             return SuccessApiResult(list);
         }
 

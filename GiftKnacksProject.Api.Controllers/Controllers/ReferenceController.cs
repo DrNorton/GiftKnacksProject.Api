@@ -17,7 +17,7 @@ using Microsoft.AspNet.Identity;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/reference")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     public class ReferenceController:CustomApiController
     {
         private readonly IReferenceRepository _referenceRepository;

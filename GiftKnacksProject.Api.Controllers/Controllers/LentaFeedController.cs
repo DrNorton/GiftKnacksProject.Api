@@ -12,7 +12,7 @@ using Microsoft.AspNet.Identity;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/Lenta")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     public class LentaFeedController : CustomApiController
     {
         private readonly INotificationService _notificationService;

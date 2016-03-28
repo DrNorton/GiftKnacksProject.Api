@@ -9,6 +9,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GiftKnackAgentCore.Services;
 using GiftKnackMessageAgent.Services;
+using Microsoft.Azure;
 using Microsoft.Azure.Documents.Client;
 
 namespace GiftKnackMessageAgent.Installers
@@ -18,10 +19,9 @@ namespace GiftKnackMessageAgent.Installers
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
             container.Register(Component.For<Functions>().LifestyleTransient());
-
             container.Register(Component.For<IChatMessageFromMqProcessor>().ImplementedBy<ChatMessageFromMqProcessor>().LifestyleTransient());
-            var endpointUrl = ConfigurationManager.AppSettings["DocumentDbEndpointUrl"];
-            var authorizationKey = ConfigurationManager.AppSettings["DocumentDbAuthorizationKey"];
+            var endpointUrl = CloudConfigurationManager.GetSetting("DocumentDbEndpointUrl");
+            var authorizationKey = CloudConfigurationManager.GetSetting("DocumentDbAuthorizationKey");
             container.Register(
                 Component.For<DocumentClient>().UsingFactoryMethod((kernel, parameters) => new DocumentClient(new Uri(endpointUrl), authorizationKey)).LifestyleTransient());
 

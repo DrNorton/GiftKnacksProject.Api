@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GiftKnackAgentCore.Services;
 using GiftKnackNotificationAgent.Services;
+using GiftKnacksProject.Api.EfDao;
+using Microsoft.Azure;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Documents.Linq;
@@ -21,7 +23,7 @@ namespace GiftKnackNotificationAgent
         private readonly IMessageFromMqProcessor _messageFromMqProcessor;
         private readonly IRealTimePushNotificationService _realTimePushNotificationService;
 
-        public Functions(IMessageFromMqProcessor messageFromMqProcessor, IRealTimePushNotificationService realTimePushNotificationService)
+        public Functions(IMessageFromMqProcessor messageFromMqProcessor, IRealTimePushNotificationService realTimePushNotificationService, EfContext context)
         {
             _messageFromMqProcessor = messageFromMqProcessor;
             _realTimePushNotificationService = realTimePushNotificationService;
@@ -36,6 +38,9 @@ namespace GiftKnackNotificationAgent
             await _realTimePushNotificationService.SentRealTimeMessages(processedMessages);
         }
 
-      
+
+        
+
+
     }
 }

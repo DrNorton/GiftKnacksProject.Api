@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Microsoft.Azure;
 using Microsoft.Azure.WebJobs;
+using Newtonsoft.Json;
 
 namespace GiftKnackNotificationAgent
 {
@@ -17,12 +21,17 @@ namespace GiftKnackNotificationAgent
         public static void Main()
         {
             var container = new WindsorContainer().Install(FromAssembly.This());
+         
             var config = new JobHostConfiguration() {JobActivator = new JobActivator(container) };
             config.UseServiceBus();
 
             var host = new JobHost(config);
+
             // The following code ensures that the WebJob will be running continuously
+            DisplaySettings();
             host.RunAndBlock();
         }
+
+     
     }
 }

@@ -31,7 +31,7 @@ using Newtonsoft.Json.Linq;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/Account")]
-    [EnableCors(origins: "http://giftknackapi.azurewebsites.net", headers: "*", methods: "*")]
+   
     public class AccountController : CustomApiController
     {
         private readonly CustomUserManager _userManager;

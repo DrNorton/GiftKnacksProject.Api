@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
+using Microsoft.Azure;
 using Microsoft.Azure.WebJobs;
+using Newtonsoft.Json;
 
 namespace GiftKnackMessageAgent
 {
@@ -22,7 +25,32 @@ namespace GiftKnackMessageAgent
 
             var host = new JobHost(config);
             // The following code ensures that the WebJob will be running continuously
+            DisplaySettings();
             host.RunAndBlock();
+        }
+
+        public static void DisplaySettings()
+        {
+            var list = new Dictionary<string, string>();
+            list.Add("DocumentDbEndpointUrl", CloudConfigurationManager.GetSetting("DocumentDbEndpointUrl"));
+            list.Add("DocumentDbAuthorizationKey", CloudConfigurationManager.GetSetting("DocumentDbAuthorizationKey"));
+            list.Add("AzureWebJobsDashboard", CloudConfigurationManager.GetSetting("AzureWebJobsDashboard"));
+            list.Add("AzureWebJobsStorage", CloudConfigurationManager.GetSetting("AzureWebJobsStorage"));
+            list.Add("AzureWebJobsServiceBus", CloudConfigurationManager.GetSetting("AzureWebJobsServiceBus"));
+            list.Add("giftKnacksConnectionString", CloudConfigurationManager.GetSetting("giftKnacksConnectionString"));
+            var connectionString = ConfigurationManager.ConnectionStrings["giftKnacksConnectionString"];
+            if (connectionString == null)
+            {
+                list.Add("connectionstring", "null");
+            }
+            else
+            {
+                list.Add("connectionstring", connectionString.ConnectionString);
+            }
+
+
+
+            Console.WriteLine(JsonConvert.SerializeObject(list));
         }
     }
 }

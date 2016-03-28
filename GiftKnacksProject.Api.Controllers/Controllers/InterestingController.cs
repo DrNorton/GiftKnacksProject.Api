@@ -14,7 +14,7 @@ using Microsoft.AspNet.Identity;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/interestingnear")]
-    [EnableCors(origins: "*", headers: "*", methods: "*")]
+
     public class InterestingController : CustomApiController
     {
         private readonly IProfileRepository _repository;

@@ -9,6 +9,7 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using GiftKnackAgentCore.Services;
 using GiftKnackNotificationAgent.Services;
+using Microsoft.Azure;
 using Microsoft.Azure.Documents.Client;
 
 namespace GiftKnackNotificationAgent.Installers
@@ -17,8 +18,8 @@ namespace GiftKnackNotificationAgent.Installers
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            var endpointUrl = ConfigurationManager.AppSettings["DocumentDbEndpointUrl"];
-            var authorizationKey = ConfigurationManager.AppSettings["DocumentDbAuthorizationKey"];
+            var endpointUrl = CloudConfigurationManager.GetSetting("DocumentDbEndpointUrl");
+            var authorizationKey = CloudConfigurationManager.GetSetting("DocumentDbAuthorizationKey");
           
             container.Register(
                 Component.For<DocumentClient>()
@@ -27,7 +28,12 @@ namespace GiftKnackNotificationAgent.Installers
                     .LifestyleTransient());
 
             container.Register(Component.For<Functions>().LifestyleTransient());
-            container.Register(Component.For<IRealTimePushNotificationService>().ImplementedBy<RealTimePushNotificationService>().LifestyleTransient());
+            var baseUrl = CloudConfigurationManager.GetSetting("ApiUrl");
+            if (baseUrl == null)
+            {
+                throw new Exception("ApiUrl not exist");
+            }
+            container.Register(Component.For<IRealTimePushNotificationService>().ImplementedBy<RealTimePushNotificationService>().DependsOn(Dependency.OnValue("baseUrl", baseUrl)).LifestyleTransient());
             container.Register(Component.For<INoSqlDatabaseRepository>().ImplementedBy<NoSqlDatabaseRepository>().LifestyleTransient());
         }
     }

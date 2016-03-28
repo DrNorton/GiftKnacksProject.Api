@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Castle.Windsor;
@@ -47,34 +48,41 @@ namespace GiftKnacksProject.Api.Controllers
         {
             var userManager = _container.Resolve<CustomUserManager>();
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-            var user = await userManager.FindByNameAsync(context.UserName);
-            
-           
-            if (user == null)
+            try
             {
-                context.SetError("invalid_grant", "The user name doesnt Exist");
-                return;
-            }
-            var passwordCorrect=await userManager.CheckPasswordAsync(user, context.Password);
-            if (!passwordCorrect)
-            {
-                context.SetError("invalid_grant", "The password is fake");
-                return;
-            }
+                var user = await userManager.FindByNameAsync(context.UserName);
 
-            if (!user.ConfirmEmail)
-            {
-                context.SetError("invalid_grant", "Validate your email");
-                return;
-            }
 
-            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-     
-            identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            identity.AddClaim(new Claim("profileFiled",user.IsFilled.ToString()));
-            
-            context.Validated(identity);
+                if (user == null)
+                {
+                    context.SetError("invalid_grant", "The user name doesnt Exist");
+                    return;
+                }
+                var passwordCorrect = await userManager.CheckPasswordAsync(user, context.Password);
+                if (!passwordCorrect)
+                {
+                    context.SetError("invalid_grant", "The password is fake");
+                    return;
+                }
+
+                if (!user.ConfirmEmail)
+                {
+                    context.SetError("invalid_grant", "Validate your email");
+                    return;
+                }
+
+                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+
+                identity.AddClaim(new Claim(ClaimTypes.Name, user.UserName));
+                identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                identity.AddClaim(new Claim("profileFiled", user.IsFilled.ToString()));
+
+                context.Validated(identity);
+            }
+            catch (Exception e)
+            {
+                
+            }
 
         }
     }
