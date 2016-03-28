@@ -35,10 +35,10 @@ namespace GiftKnacksProject.Api.Dependencies.Installers
             var messageMqConnectionQmString = ConfigurationManager.AppSettings["Microsoft.ServiceBus.MessagesMQConnectionString"];
         
             container.Register(Component.For<INotificationService>().ImplementedBy<NotificationService>()
-                .DependsOn(Dependency.OnValue("notififactionQueueClient", QueueClient.CreateFromConnectionString(notificationConnectionQmString, "notifications"))).LifestyleTransient());
+                .DependsOn(Dependency.OnValue("notififactionQueueClient", QueueClient.CreateFromConnectionString(notificationConnectionQmString, "knackgiftnotifications"))).LifestyleTransient());
 
             container.Register(Component.For<IChatMessageService>().ImplementedBy<ChatMessageService>()
-              .DependsOn(Dependency.OnValue("chatQueueClient", QueueClient.CreateFromConnectionString(messageMqConnectionQmString, "messages"))).LifestyleTransient());
+              .DependsOn(Dependency.OnValue("chatQueueClient", QueueClient.CreateFromConnectionString(messageMqConnectionQmString, "knackgiftmessages"))).LifestyleTransient());
 
             container.Register(Component.For<IUserOnlineSignalService>().ImplementedBy<UserOnlineSignalService>().LifeStyle.Singleton.Start());
         }

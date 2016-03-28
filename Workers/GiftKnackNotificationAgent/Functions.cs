@@ -30,7 +30,7 @@ namespace GiftKnackNotificationAgent
         }
 
 
-        public  async Task ProcessQueueMessage([ServiceBusTrigger("notifications")] BrokeredMessage message,
+        public  async Task ProcessQueueMessage([ServiceBusTrigger("knackgiftnotifications")] BrokeredMessage message,
       TextWriter logger)
         {
             var processedMessages=await _messageFromMqProcessor.ProcessMessage(message);
