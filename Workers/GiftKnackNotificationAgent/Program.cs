@@ -50,6 +50,7 @@ namespace GiftKnackNotificationAgent
             else
             {
                 list.Add("connectionstring", connectionString.ConnectionString);
+                list.Add("ProviderName", connectionString.ProviderName);
             }
 
 
