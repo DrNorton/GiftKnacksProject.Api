@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Castle.Windsor;
@@ -20,16 +21,33 @@ namespace GiftKnackNotificationAgent
         // AzureWebJobsDashboard and AzureWebJobsStorage
         public static void Main()
         {
+            HookConnectionStrings();
             var container = new WindsorContainer().Install(FromAssembly.This());
-         
             var config = new JobHostConfiguration() {JobActivator = new JobActivator(container) };
             config.UseServiceBus();
-
             var host = new JobHost(config);
 
             // The following code ensures that the WebJob will be running continuously
             DisplaySettings();
             host.RunAndBlock();
+        }
+
+        private static void HookConnectionStrings()
+        {
+            var fieldInfo = typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (fieldInfo != null)
+            {
+                fieldInfo.SetValue(ConfigurationManager.ConnectionStrings, false);
+
+                // Check for AppSetting and Create
+                var connectionString = CloudConfigurationManager.GetSetting("giftKnacksConnectionString");
+                if (connectionString != null)
+                {
+                    var myDB = new ConnectionStringSettings("giftKnacksConnectionString", connectionString);
+                    myDB.ProviderName = "System.Data.EntityClient";
+                    ConfigurationManager.ConnectionStrings.Add(myDB);
+                }
+            }
         }
 
 

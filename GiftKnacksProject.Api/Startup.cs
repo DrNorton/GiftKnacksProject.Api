@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Net;
 using System.Net.Mail;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Http;
@@ -20,6 +21,7 @@ namespace GiftKnacksProject.Api
     {
         public void Configuration(IAppBuilder app)
         {
+            HookConnectionStrings();
             var config = new HttpConfiguration();
             var container = ConfigureWindsor(GlobalConfiguration.Configuration);
             ConfigureOAuth(app, container);
@@ -57,6 +59,23 @@ namespace GiftKnacksProject.Api
             app.UseOAuthAuthorizationServer(container.Resolve<OAuthAuthorizationServerOptions>());
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
            
+        }
+
+        private void HookConnectionStrings()
+        {
+            var fieldInfo = typeof(ConfigurationElementCollection).GetField("bReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+            if (fieldInfo != null)
+            {
+                fieldInfo.SetValue(ConfigurationManager.ConnectionStrings, false);
+
+                // Check for AppSetting and Create
+                if (ConfigurationManager.AppSettings["giftKnacksConnectionString"] != null)
+                {
+                    ConnectionStringSettings myDB = new ConnectionStringSettings("giftKnacksConnectionString", ConfigurationManager.AppSettings["giftKnacksConnectionString"]);
+                    myDB.ProviderName = "System.Data.EntityClient";
+                    ConfigurationManager.ConnectionStrings.Add(myDB);
+                }
+            }
         }
 
         public static IWindsorContainer ConfigureWindsor(HttpConfiguration configuration)
