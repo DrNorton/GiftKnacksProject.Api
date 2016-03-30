@@ -24,11 +24,12 @@ namespace GiftKnackAgentCore.Services
     public class NoSqlDatabaseRepository : INoSqlDatabaseRepository
     {
         private readonly DocumentClient _client;
-        private const string DatabaseId = "knackgifterstorage";
+        private readonly string _databaseId;
 
 
-        public NoSqlDatabaseRepository(DocumentClient client)
+        public NoSqlDatabaseRepository(DocumentClient client,string databaseName)
         {
+            _databaseId = databaseName;
             _client = client;
         }
 
@@ -95,12 +96,12 @@ namespace GiftKnackAgentCore.Services
         private async Task<Database> RetrieveOrCreateDatabaseAsync()
         {
             // Try to retrieve the database (Microsoft.Azure.Documents.Database) whose Id is equal to databaseId            
-            var database = _client.CreateDatabaseQuery().Where(db => db.Id == DatabaseId).AsEnumerable().FirstOrDefault();
+            var database = _client.CreateDatabaseQuery().Where(db => db.Id == _databaseId).AsEnumerable().FirstOrDefault();
 
             // If the previous call didn't return a Database, it is necessary to create it
             if (database == null)
             {
-                database = await _client.CreateDatabaseAsync(new Database { Id = DatabaseId });
+                database = await _client.CreateDatabaseAsync(new Database { Id = _databaseId });
                 Console.WriteLine("Created Database: id - {0} and selfLink - {1}", database.Id, database.SelfLink);
             }
 

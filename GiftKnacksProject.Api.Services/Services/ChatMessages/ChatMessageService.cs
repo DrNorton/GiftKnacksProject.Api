@@ -21,13 +21,14 @@ namespace GiftKnacksProject.Api.Services.Services.ChatMessages
         private readonly QueueClient _queueClient;
         private readonly DocumentClient _databaseClient;
         private readonly IProfileRepository _profileRepository;
-        private const string DatabaseId = "knackgifterstorage";
+        private readonly string _databaseId;
 
-        public ChatMessageService(QueueClient chatQueueClient, DocumentClient databaseClient,IProfileRepository profileRepository)
+        public ChatMessageService(QueueClient chatQueueClient, DocumentClient databaseClient,IProfileRepository profileRepository,string databaseName)
         {
             _queueClient = chatQueueClient;
             _databaseClient = databaseClient;
             _profileRepository = profileRepository;
+            _databaseId = databaseName;
         }
 
         public Task SendMessageToQueue(ChatMqMessage mqMessage)
@@ -38,7 +39,7 @@ namespace GiftKnacksProject.Api.Services.Services.ChatMessages
 
         public async Task<DialogsResultDto> GetDialogs(long userId)
           {
-            var database = await RetrieveOrCreateDatabaseAsync(DatabaseId);
+            var database = await RetrieveOrCreateDatabaseAsync(_databaseId);
             var collection = await RetrieveOrCreateCollectionAsync(database.SelfLink, "lastmessages");
             var data = _databaseClient.CreateDocumentQuery<LastMessageDocumentDbSchema>(collection.DocumentsLink).Where(x => x.Recepient == userId ||x.Sender==userId).OrderByDescending(x => x.Time).ToList();
             return await CreateDialogsList(data,userId);
@@ -47,7 +48,7 @@ namespace GiftKnacksProject.Api.Services.Services.ChatMessages
 
         public async Task<List<MessageFromDialog>> GetMessagesFromDialog(long user1, long user2)
         {
-            var database = await RetrieveOrCreateDatabaseAsync(DatabaseId);
+            var database = await RetrieveOrCreateDatabaseAsync(_databaseId);
             var resultMessages=new List<MessageFromDialog>();
             var collection = await RetrieveOrCreateCollectionAsync(database.SelfLink, "messages");
             string id;
@@ -116,12 +117,12 @@ namespace GiftKnacksProject.Api.Services.Services.ChatMessages
         private async Task<Database> RetrieveOrCreateDatabaseAsync(string id)
         {
             // Try to retrieve the database (Microsoft.Azure.Documents.Database) whose Id is equal to databaseId            
-            var database = _databaseClient.CreateDatabaseQuery().Where(db => db.Id == DatabaseId).AsEnumerable().FirstOrDefault();
+            var database = _databaseClient.CreateDatabaseQuery().Where(db => db.Id == _databaseId).AsEnumerable().FirstOrDefault();
 
             // If the previous call didn't return a Database, it is necessary to create it
             if (database == null)
             {
-                database = await _databaseClient.CreateDatabaseAsync(new Database { Id = DatabaseId });
+                database = await _databaseClient.CreateDatabaseAsync(new Database { Id = _databaseId });
                 Console.WriteLine("Created Database: id - {0} and selfLink - {1}", database.Id, database.SelfLink);
             }
 

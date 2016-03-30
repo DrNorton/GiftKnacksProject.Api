@@ -33,12 +33,14 @@ namespace GiftKnacksProject.Api.Dependencies.Installers
             container.Register(Component.For<IFileService>().Instance(fileService));
             var notificationConnectionQmString = ConfigurationManager.AppSettings["Microsoft.ServiceBus.NotificationMQConnectionString"];
             var messageMqConnectionQmString = ConfigurationManager.AppSettings["Microsoft.ServiceBus.MessagesMQConnectionString"];
-        
+            var databaseName = ConfigurationManager.AppSettings["DocumentDatabaseName"];
             container.Register(Component.For<INotificationService>().ImplementedBy<NotificationService>()
-                .DependsOn(Dependency.OnValue("notififactionQueueClient", QueueClient.CreateFromConnectionString(notificationConnectionQmString, "knackgiftnotifications"))).LifestyleTransient());
+                .DependsOn(Dependency.OnValue("notififactionQueueClient",
+                    QueueClient.CreateFromConnectionString(notificationConnectionQmString, "knackgiftnotifications")),
+                    Dependency.OnValue("databasename", databaseName)).LifestyleTransient());
 
             container.Register(Component.For<IChatMessageService>().ImplementedBy<ChatMessageService>()
-              .DependsOn(Dependency.OnValue("chatQueueClient", QueueClient.CreateFromConnectionString(messageMqConnectionQmString, "knackgiftmessages"))).LifestyleTransient());
+              .DependsOn(Dependency.OnValue("chatQueueClient", QueueClient.CreateFromConnectionString(messageMqConnectionQmString, "knackgiftmessages")),Dependency.OnValue("databaseName", databaseName)).LifestyleTransient());
 
             container.Register(Component.For<IUserOnlineSignalService>().ImplementedBy<UserOnlineSignalService>().LifeStyle.Singleton.Start());
         }

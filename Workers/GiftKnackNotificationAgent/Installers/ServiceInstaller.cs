@@ -20,7 +20,8 @@ namespace GiftKnackNotificationAgent.Installers
         {
             var endpointUrl = CloudConfigurationManager.GetSetting("DocumentDbEndpointUrl");
             var authorizationKey = CloudConfigurationManager.GetSetting("DocumentDbAuthorizationKey");
-          
+            var databaseName = CloudConfigurationManager.GetSetting("DocumentDatabaseName");
+
             container.Register(
                 Component.For<DocumentClient>()
                     .DependsOn(Dependency.OnValue("serviceEndpoint", new Uri(endpointUrl)),
@@ -34,7 +35,10 @@ namespace GiftKnackNotificationAgent.Installers
                 throw new Exception("ApiUrl not exist");
             }
             container.Register(Component.For<IRealTimePushNotificationService>().ImplementedBy<RealTimePushNotificationService>().DependsOn(Dependency.OnValue("baseUrl", baseUrl)).LifestyleTransient());
-            container.Register(Component.For<INoSqlDatabaseRepository>().ImplementedBy<NoSqlDatabaseRepository>().LifestyleTransient());
+            container.Register(Component.For<INoSqlDatabaseRepository>().ImplementedBy<NoSqlDatabaseRepository>()
+         .DependsOn(Dependency.OnValue("client",
+            new DocumentClient(new Uri(endpointUrl), authorizationKey)),
+             Dependency.OnValue("databasename", databaseName)).LifestyleTransient());
         }
     }
 }

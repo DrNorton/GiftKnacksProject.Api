@@ -11,6 +11,7 @@ using GiftKnackAgentCore.Services;
 using GiftKnackMessageAgent.Services;
 using Microsoft.Azure;
 using Microsoft.Azure.Documents.Client;
+using Microsoft.ServiceBus.Messaging;
 
 namespace GiftKnackMessageAgent.Installers
 {
@@ -22,10 +23,15 @@ namespace GiftKnackMessageAgent.Installers
             container.Register(Component.For<IChatMessageFromMqProcessor>().ImplementedBy<ChatMessageFromMqProcessor>().LifestyleTransient());
             var endpointUrl = CloudConfigurationManager.GetSetting("DocumentDbEndpointUrl");
             var authorizationKey = CloudConfigurationManager.GetSetting("DocumentDbAuthorizationKey");
+            var databaseName = CloudConfigurationManager.GetSetting("DocumentDatabaseName");
             container.Register(
                 Component.For<DocumentClient>().UsingFactoryMethod((kernel, parameters) => new DocumentClient(new Uri(endpointUrl), authorizationKey)).LifestyleTransient());
 
-            container.Register(Component.For<INoSqlDatabaseRepository>().ImplementedBy<NoSqlDatabaseRepository>().LifestyleTransient());
+            container.Register(Component.For<INoSqlDatabaseRepository>().ImplementedBy<NoSqlDatabaseRepository>()
+              .DependsOn(Dependency.OnValue("client",
+                 new DocumentClient(new Uri(endpointUrl), authorizationKey)),
+                  Dependency.OnValue("databasename", databaseName)).LifestyleTransient());
+          
         }
     }
 }
