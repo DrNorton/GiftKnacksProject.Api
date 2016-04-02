@@ -12,8 +12,6 @@ namespace GiftKnacksProject.Api.Dto.Dtos.Gifts
     public class GiftDto:BaseEntityDto
     {
         public CountryDto Country { get; set; }
-
-
         public string City { get; set; }
         public string Location { get; set; }
         [JsonConverter(typeof(CustomDateTimeConverter))]

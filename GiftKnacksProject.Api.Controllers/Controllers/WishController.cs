@@ -132,6 +132,17 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         }
 
 
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("UpdateWish")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> UpdateGift(WishDto updatedWish)
+        {
+            var userId = long.Parse(User.Identity.GetUserId());
+            var updatedResult = await _wishRepository.UpdateWish(userId, updatedWish);
+            return SuccessApiResult(updatedResult);
+        }
+
+
 
     }
 }

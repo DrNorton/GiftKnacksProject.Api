@@ -45,30 +45,11 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
         //Добавление вишеа
         public async Task<long> AddWish(long userId,WishDto wish)
         {
-            var category = Db.Set<WishCategory>().FirstOrDefault(x => x.Name == wish.Category);
-            var country = Db.Set<Country>().FirstOrDefault(x => x.Id == wish.Country.Code);
-            var status = Db.Set<GiftWishStatus>().FirstOrDefault(x => x.Code.Equals(0));
-            var newwish = new Wish()
-            {
-                Benefit = wish.Benefit,
-                WishCategory = category,
-                City = wish.City,
-                Country1 = country,
-                Description = wish.Description,
-                FromDate = wish.FromDate,
-                ToDate = wish.ToDate,
-                ImageUrl = wish.ImageUrl,
-                UserId = userId,
-                Emergency = wish.Emergency,
-                Name = wish.Name,
-                Location = wish.Location,
-                GiftWishStatus = status
-
-
-            };
-            base.Insert(newwish);
+            var newWish=new Wish();
+            newWish=UpdateEfModelFromDto(newWish, wish, userId);
+            base.Insert(newWish);
             base.Save();
-            return newwish.Id;
+            return newWish.Id;
         }
 
         //Получение вишей
@@ -136,25 +117,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
             var wish = Db.Set<Wish>().Find(id);
             if (wish != null)
             {
-                var dto = new WishDto()
-                {
-                    Id = wish.Id,
-                    Country = new CountryDto() { Code = wish.Country1.Id, Name = wish.Country1.Name },
-                    Description = wish.Description,
-                    Benefit = wish.Benefit,
-                    ImageUrl = wish.ImageUrl,
-                    City = wish.City,
-                    FromDate = wish.FromDate,
-                    ToDate = wish.ToDate,
-                    Location = wish.Location,
-                    Name = wish.Name,
-                    Status = new StatusDto() { Code = wish.GiftWishStatus.Code, Status = wish.GiftWishStatus.Status },
-                    Emergency = wish.Emergency,
-                    Category = wish.WishCategory.Name,
-                    Participants = wish.WishGiftLinks.Select(x => new ParticipantDto() { FirstName = x.Gift.User.Profile.FirstName, Id = x.Gift.User.Id, LastName = x.Gift.User.Profile.LastName }),
-                    Creator = new CreatorDto() { AvatarUrl = wish.User.Profile.AvatarUrl, CreatorId = wish.User.Id, FirstName = wish.User.Profile.FirstName, LastName = wish.User.Profile.LastName, FavoriteContact = wish.User.Profile.Contacts.Where(x => x.MainContact).Select(x => new ContactDto() { Name = x.ContactType.Name, Value = x.Value, MainContact = x.MainContact }).FirstOrDefault() },
-                    
-                };
+                var dto = ConvertToDto(wish);
 
                 return Task.FromResult(dto);
             }
@@ -163,6 +126,55 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 return Task.FromResult(default(WishDto));
             }
 
+        }
+
+        private static WishDto ConvertToDto(Wish wish)
+        {
+            var dto = new WishDto()
+            {
+                Id = wish.Id,
+                Country = new CountryDto() {Code = wish.Country1.Id, Name = wish.Country1.Name},
+                Description = wish.Description,
+                Benefit = wish.Benefit,
+                ImageUrl = wish.ImageUrl,
+                City = wish.City,
+                FromDate = wish.FromDate,
+                ToDate = wish.ToDate,
+                Location = wish.Location,
+                Name = wish.Name,
+                Status = new StatusDto() {Code = wish.GiftWishStatus.Code, Status = wish.GiftWishStatus.Status},
+                Emergency = wish.Emergency,
+                Category = wish.WishCategory.Name,
+                Participants =
+                    wish.WishGiftLinks.Select(
+                        x =>
+                            new ParticipantDto()
+                            {
+                                FirstName = x.Gift.User.Profile.FirstName,
+                                Id = x.Gift.User.Id,
+                                LastName = x.Gift.User.Profile.LastName
+                            }),
+                Creator =
+                    new CreatorDto()
+                    {
+                        AvatarUrl = wish.User.Profile.AvatarUrl,
+                        CreatorId = wish.User.Id,
+                        FirstName = wish.User.Profile.FirstName,
+                        LastName = wish.User.Profile.LastName,
+                        FavoriteContact =
+                            wish.User.Profile.Contacts.Where(x => x.MainContact)
+                                .Select(
+                                    x =>
+                                        new ContactDto()
+                                        {
+                                            Name = x.ContactType.Name,
+                                            Value = x.Value,
+                                            MainContact = x.MainContact
+                                        })
+                                .FirstOrDefault()
+                    },
+            };
+            return dto;
         }
 
         public async Task CloseWish(long wishId,long currentUserId,long? closerId)
@@ -189,6 +201,36 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
         public Task<List<ParticipantDto>> GetAllParticipants(long closedItemId)
         {
             return Db.Set<WishGiftLink>().Where(x => x.WishId == closedItemId).Select(x => new ParticipantDto() { Id = x.Gift.UserId }).ToListAsync();
+        }
+
+        public async Task<WishDto> UpdateWish(long userId, WishDto updatedWish)
+        {
+            var originalWish = Db.Set<Wish>().Find(updatedWish.Id);
+            originalWish = UpdateEfModelFromDto(originalWish, updatedWish, userId);
+            base.Update(originalWish);
+            await Db.SaveChangesAsync();
+            return ConvertToDto(originalWish);
+        }
+
+        private Wish UpdateEfModelFromDto(Wish wish, WishDto dto, long userId)
+        {
+            var category = Db.Set<WishCategory>().FirstOrDefault(x => x.Name == dto.Category);
+            var country = Db.Set<Country>().FirstOrDefault(x => x.Id == dto.Country.Code);
+            var status = Db.Set<GiftWishStatus>().FirstOrDefault(x => x.Code.Equals(0));
+            wish.Benefit = dto.Benefit;
+            wish.WishCategory = category;
+            wish.City = dto.City;
+            wish.Country1 = country;
+            wish.Description = dto.Description;
+            wish.FromDate = dto.FromDate;
+            wish.ToDate = dto.ToDate;
+            wish.ImageUrl = dto.ImageUrl;
+            wish.UserId = userId;
+            wish.Emergency = dto.Emergency;
+            wish.Name = dto.Name;
+            wish.Location = dto.Location;
+            wish.GiftWishStatus = status;
+            return wish;
         }
 
         //Получение виша по городу округу

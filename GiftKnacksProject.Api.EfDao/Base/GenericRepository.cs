@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Runtime.Remoting.Contexts;
 using System.Threading.Tasks;
 using GiftKnacksProject.Api.Dao.Repositories;
 using GiftKnacksProject.Api.Dto.Dtos;
@@ -41,6 +43,16 @@ namespace GiftKnacksProject.Api.EfDao.Base
         {
             _table.Attach(obj);
             Db.Entry(obj).State = EntityState.Modified;
+        }
+
+        public void Update(T obj, params Expression<Func<T, object>>[] propertiesToUpdate)
+        {
+            Db.Set<T>().Attach(obj);
+
+            foreach (var p in propertiesToUpdate)
+            {
+                Db.Entry(obj).Property(p).IsModified = true;
+            }
         }
 
         public void Delete(object id)

@@ -108,12 +108,21 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         public async Task<IHttpActionResult> AddGift(GiftDto gift)
         {
             var userId = long.Parse(User.Identity.GetUserId());
-         
             var id=await _giftRepository.AddGift(userId, gift);
             return SuccessApiResult(new IdModel(){Id = id});
         }
 
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("UpdateGift")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> UpdateGift(GiftDto updatedGift)
+        {
+            var userId = long.Parse(User.Identity.GetUserId());
+            var updatedResult = await _giftRepository.UpdateGift(userId, updatedGift);
+            return SuccessApiResult(updatedResult);
+        }
 
-      
+
+
     }
 }
