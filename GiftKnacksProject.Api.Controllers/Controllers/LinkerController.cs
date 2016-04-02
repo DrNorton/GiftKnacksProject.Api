@@ -45,6 +45,14 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             return EmptyApiResult();
         }
 
-       
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("unlink")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> Unlink(WishGiftLinkDto participantDto)
+        {
+            var userId = long.Parse(User.Identity.GetUserId());
+            await _linkRepository.Unlink(userId, participantDto.WishId, participantDto.GiftId);
+            return EmptyApiResult();
+        }
     }
 }

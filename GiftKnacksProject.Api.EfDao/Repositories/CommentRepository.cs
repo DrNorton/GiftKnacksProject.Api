@@ -197,7 +197,9 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                     Id = newComment.User.Id,
                     AvatarUrl = newComment.User.Profile.AvatarUrl,
                     FirstName = newComment.User.Profile.FirstName,
-                    LastName = newComment.User.Profile.LastName
+                    LastName = newComment.User.Profile.LastName,
+                    AvgRate = newComment.User.AvgRate,
+                    TotalClosed = newComment.User.TotalClosed
                 }
             };
         }

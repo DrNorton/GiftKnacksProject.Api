@@ -17,7 +17,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
         }
 
 
-        public async Task<long> LinkWithGift(long userId, long wishId, long giftId)
+        public async  Task<long> LinkWithGift(long userId, long wishId, long giftId)
         {
             var newLink =  Db.Set<WishGiftLink>().Create();
             newLink.CreatedTime = DateTime.Now;
@@ -28,5 +28,17 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
             base.Save();
             return newLink.Wish.UserId;
         }
+
+        public Task Unlink(long userId, long wishId, long giftId)
+        {
+            var newLink = Db.Set<WishGiftLink>().FirstOrDefault(x => x.WishId == wishId && x.GiftId == giftId && x.UserId==userId);
+            if (newLink == null)
+            {
+                throw new Exception("link not finded");
+            }
+            Db.Set<WishGiftLink>().Remove(newLink);
+            return Db.SaveChangesAsync();
+        }
+
     }
 }

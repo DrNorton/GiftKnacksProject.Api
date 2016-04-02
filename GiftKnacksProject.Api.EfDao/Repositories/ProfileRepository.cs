@@ -100,7 +100,9 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 AvatarUrl = x.AvatarUrl,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Id = x.Id
+                Id = x.Id,
+                AvgRate = x.User.AvgRate,
+                TotalClosed = x.User.TotalClosed
             }).FirstOrDefaultAsync();
            
         }
@@ -112,7 +114,9 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 AvatarUrl = x.AvatarUrl,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
-                Id = x.Id
+                Id = x.Id,
+                AvgRate = x.User.AvgRate,
+                TotalClosed = x.User.TotalClosed
             }).ToListAsync();
         }
 
@@ -126,11 +130,11 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                         new TinyProfileDto()
                         {
                             AvatarUrl = x.AvatarUrl,
-                            AvgRate = 0,
+                            AvgRate = x.User.AvgRate,
                             FirstName = x.FirstName,
                             Id = x.Id,
                             LastName = x.LastName,
-                            TotalClosed = 0
+                            TotalClosed = x.User.TotalClosed
                         })
                 .ToListAsync();
         }

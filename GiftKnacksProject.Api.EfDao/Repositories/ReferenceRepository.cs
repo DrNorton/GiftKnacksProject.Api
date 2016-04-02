@@ -75,6 +75,8 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                                     AvatarUrl = x.User1.Profile.AvatarUrl,
                                     FirstName = x.User1.Profile.FirstName,
                                     LastName = x.User1.Profile.LastName,
+                                    AvgRate = x.User.AvgRate,
+                                    TotalClosed = x.User.TotalClosed
                                 }
                         }).FirstOrDefaultAsync();
         }
