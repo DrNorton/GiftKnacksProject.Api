@@ -46,6 +46,22 @@ namespace GiftKnacksProject.Api.Services.Services.FeedService
             return data;
         }
 
+        public async Task DeleteNotificationFromLenta(string id)
+        {
+            var database = await RetrieveOrCreateDatabaseAsync(_databaseId);
+            var collection = await RetrieveOrCreateCollectionAsync(database.SelfLink, "notificationLenta");
+            var findedDocument =
+                _databaseClient.CreateDocumentQuery(collection.DocumentsLink)
+                    .Where(x => x.Id == id).AsEnumerable().FirstOrDefault();
+            if (findedDocument == null)
+            {
+                throw new Exception("Уведомления не существует");
+            }
+            await _databaseClient.DeleteDocumentAsync(findedDocument.SelfLink);
+        }
+
+        
+
         private async Task<Database> RetrieveOrCreateDatabaseAsync(string id)
         {
             // Try to retrieve the database (Microsoft.Azure.Documents.Database) whose Id is equal to databaseId            

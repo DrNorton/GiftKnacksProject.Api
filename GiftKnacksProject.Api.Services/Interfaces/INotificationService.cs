@@ -11,5 +11,6 @@ namespace GiftKnacksProject.Api.Services.Interfaces
     {
         Task SentNotificationToQueue(BaseQueueNotification activity);
         Task<List<Notification>> GetLenta(long id);
+        Task DeleteNotificationFromLenta(string id);
     }
 }

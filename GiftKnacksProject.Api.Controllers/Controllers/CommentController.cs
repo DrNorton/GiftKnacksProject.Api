@@ -68,7 +68,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         {
             var userId = long.Parse(User.Identity.GetUserId());
             var insertedComment = await _commentRepository.AddCommentToGift(model.GiftId, userId, model.Text, model.ParentCommentId);
-            var ownerId= await _commentRepository.GetOwnerGift(model.GiftId);
+           
 
             await
                _notificationService.SentNotificationToQueue(new AddCommentQueueNotification()

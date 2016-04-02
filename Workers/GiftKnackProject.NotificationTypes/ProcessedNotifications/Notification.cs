@@ -5,6 +5,8 @@ namespace GiftKnackProject.NotificationTypes.ProcessedNotifications
 {
     public class Notification
     {
+        [JsonProperty("id")]
+        public string Id { get; set; }
         public DateTime Time { get; set; }
         public string Action { get; set; }
 

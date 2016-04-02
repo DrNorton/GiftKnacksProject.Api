@@ -271,6 +271,7 @@
     <Compile Include="Models\PatternModel.cs" />
     <Compile Include="Models\RecoverPasswordModel.cs" />
     <Compile Include="Models\ResetPasswordModel.cs" />
+    <Compile Include="Models\StringIdModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\VerifyEmailModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
