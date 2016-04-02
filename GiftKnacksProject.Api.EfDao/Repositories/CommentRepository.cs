@@ -120,7 +120,9 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                         Id = y.Comment.User.Id,
                         AvatarUrl = y.Comment.User.Profile.AvatarUrl,
                         FirstName = y.Comment.User.Profile.FirstName,
-                        LastName = y.Comment.User.Profile.LastName
+                        LastName = y.Comment.User.Profile.LastName,
+                        AvgRate = y.Comment.User.AvgRate,
+                        TotalClosed = y.Comment.User.TotalClosed
                     },
                     ChildComments = y.Comment.Comments1.Select(z => new CommentDto()
                     {
@@ -153,7 +155,9 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                         Id = y.Comment.User.Id,
                         AvatarUrl = y.Comment.User.Profile.AvatarUrl,
                         FirstName = y.Comment.User.Profile.FirstName,
-                        LastName = y.Comment.User.Profile.LastName
+                        LastName = y.Comment.User.Profile.LastName,
+                        AvgRate = y.Comment.User.AvgRate,
+                        TotalClosed = y.Comment.User.TotalClosed
                     },
                     ChildComments = y.Comment.Comments1.Select(z => new CommentDto()
                     {
