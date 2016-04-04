@@ -32,7 +32,7 @@ namespace GiftKnacksProject.Api
                         policy.AllowAnyOrigin = true;
                         policy.AllowAnyMethod = true;
                         policy.AllowAnyHeader = true;
-                        policy.SupportsCredentials = false;
+                        policy.SupportsCredentials = true;
                         return Task.FromResult(policy);
                     }
                 }
