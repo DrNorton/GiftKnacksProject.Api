@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Web.Cors;
 using System.Web.Hosting;
 using System.Web.Http;
 using Castle.MicroKernel.Registration;
@@ -19,6 +20,25 @@ namespace GiftKnacksProject.Api
 {
     public class Startup
     {
+        private static readonly Lazy<CorsOptions> SignalrCorsOptions = new Lazy<CorsOptions>(() =>
+        {
+            return new CorsOptions
+            {
+                PolicyProvider = new CorsPolicyProvider
+                {
+                    PolicyResolver = context =>
+                    {
+                        var policy = new CorsPolicy();
+                        policy.AllowAnyOrigin = true;
+                        policy.AllowAnyMethod = true;
+                        policy.AllowAnyHeader = true;
+                        policy.SupportsCredentials = false;
+                        return Task.FromResult(policy);
+                    }
+                }
+            };
+        });
+
         public void Configuration(IAppBuilder app)
         {
             HookConnectionStrings();
@@ -31,8 +51,7 @@ namespace GiftKnacksProject.Api
             app.UseWebApi(config);
             app.Map("/signalr", map =>
             {
-                map.UseCors(CorsOptions.AllowAll);
-
+                map.UseCors(SignalrCorsOptions.Value);
                 map.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
                 {
                     Provider = new QueryStringOAuthBearerProvider()
@@ -42,6 +61,7 @@ namespace GiftKnacksProject.Api
                 {
                     Resolver = GlobalHost.DependencyResolver,
                     EnableJSONP = true,
+                    
                 };
                 map.RunSignalR(hubConfiguration);
             });
@@ -89,6 +109,8 @@ namespace GiftKnacksProject.Api
         }    
     }
 
+
+  
     public class QueryStringOAuthBearerProvider : OAuthBearerAuthenticationProvider
     {
         public override Task RequestToken(OAuthRequestTokenContext context)
