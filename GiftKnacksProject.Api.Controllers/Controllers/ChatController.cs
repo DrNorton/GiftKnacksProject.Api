@@ -17,7 +17,6 @@ using Newtonsoft.Json.Linq;
 namespace GiftKnacksProject.Api.Controllers.Controllers
 {
     [System.Web.Http.RoutePrefix("api/Chat")]
-
     public class ChatController : CustomApiController
     {
         private readonly IChatMessageService _chatMessageService;
