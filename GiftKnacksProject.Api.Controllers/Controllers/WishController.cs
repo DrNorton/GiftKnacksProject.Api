@@ -135,9 +135,15 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("UpdateWish")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> UpdateGift(WishDto updatedWish)
+        public async Task<IHttpActionResult> UpdateWish(UpdatedWishDto updatedWish)
         {
             var userId = long.Parse(User.Identity.GetUserId());
+
+            if (updatedWish.Image != null)
+            {
+                updatedWish.ImageUrl = _fileService.SaveBase64FileReturnUrl(FileType.Image, updatedWish.Image.Type, updatedWish.Image.Result);
+            }
+
             var updatedResult = await _wishRepository.UpdateWish(userId, updatedWish);
             return SuccessApiResult(updatedResult);
         }

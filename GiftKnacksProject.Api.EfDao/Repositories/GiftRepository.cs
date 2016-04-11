@@ -198,7 +198,16 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
         private Gift UpdateEfModelFromDto(Gift gift,GiftDto dto,long userId)
         {
             var country = Db.Set<Country>().FirstOrDefault(x => x.Id == dto.Country.Code);
-            var status = Db.Set<GiftWishStatus>().FirstOrDefault(x => x.Code.Equals(dto.Status.Code));
+            GiftWishStatus status = null;
+            if (dto.Status == null)
+            {
+                status = Db.Set<GiftWishStatus>().FirstOrDefault(x => x.Code.Equals(0));
+            }
+            else
+            {
+                status = Db.Set<GiftWishStatus>().FirstOrDefault(x => x.Code.Equals(dto.Status.Code));
+            }
+            
             gift.Name = dto.Name;
             gift.Benefit = dto.Benefit;
             gift.City = dto.City;

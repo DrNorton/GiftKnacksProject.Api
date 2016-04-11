@@ -14,6 +14,7 @@ using GiftKnacksProject.Api.Dto.Dtos;
 using GiftKnacksProject.Api.Dto.Dtos.Gifts;
 using GiftKnacksProject.Api.EfDao;
 using GiftKnacksProject.Api.Services.Interfaces;
+using GiftKnacksProject.Api.Services.Services;
 using Microsoft.AspNet.Identity;
 
 namespace GiftKnacksProject.Api.Controllers.Controllers
@@ -24,11 +25,13 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
     {
         private readonly IGiftRepository _giftRepository;
         private readonly INotificationService _notificationService;
+        private readonly IFileService _fileService;
 
-        public GiftController(IGiftRepository giftRepository,INotificationService notificationService)
+        public GiftController(IGiftRepository giftRepository,INotificationService notificationService, IFileService fileService)
         {
             _giftRepository = giftRepository;
             _notificationService = notificationService;
+            _fileService = fileService;
         }
 
         //[System.Web.Http.Authorize]
@@ -115,9 +118,10 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("UpdateGift")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> UpdateGift(GiftDto updatedGift)
+        public async Task<IHttpActionResult> UpdateGift(UpdatedGiftDto updatedGift)
         {
             var userId = long.Parse(User.Identity.GetUserId());
+           
             var updatedResult = await _giftRepository.UpdateGift(userId, updatedGift);
             return SuccessApiResult(updatedResult);
         }

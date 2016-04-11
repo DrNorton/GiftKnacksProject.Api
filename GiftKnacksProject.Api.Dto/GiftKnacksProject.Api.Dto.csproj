@@ -76,6 +76,7 @@
     <Compile Include="Dtos\CreatorDto.cs" />
     <Compile Include="Dtos\Gifts\BaseEntityDto.cs" />
     <Compile Include="Dtos\Gifts\StatusDto.cs" />
+    <Compile Include="Dtos\Gifts\UpdatedGiftDto.cs" />
     <Compile Include="Dtos\Gifts\WishGiftLinkDto.cs" />
     <Compile Include="Dtos\Gifts\EmptyGiftDto.cs" />
     <Compile Include="Dtos\Gifts\GiftDto.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Dtos\Wishes\EmptyWishDto.cs" />
     <Compile Include="Dtos\Wishes\ImagedWishDto.cs" />
     <Compile Include="Dtos\Links\ParticipantDto.cs" />
+    <Compile Include="Dtos\Wishes\UpdatedWishDto.cs" />
     <Compile Include="Dtos\Wishes\WishCategoryDto.cs" />
     <Compile Include="Dtos\Wishes\WishDto.cs" />
     <Compile Include="JsonConverters\CustomDateTimeConverter.cs" />
