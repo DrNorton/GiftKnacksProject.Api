@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,7 @@ using System.Web;
 using System.Web.Configuration;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Http.Description;
 using System.Web.Mvc;
 using GiftKnacksProject.Api.Controllers.ApiResults;
 using GiftKnacksProject.Api.Controllers.Models;
@@ -58,9 +60,15 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
 
 
         // POST api/Account/Register
+        /// <summary>
+        /// Регистрация нового пользователя
+        /// </summary>
+        /// <param name="userModel"></param>
+        /// <returns></returns>
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Register")]
         [System.Web.Http.HttpPost]
+     
         public async Task<IHttpActionResult> Register(UserModel userModel)
         {
             if (!ModelState.IsValid)
@@ -108,6 +116,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("search")]
         [System.Web.Http.HttpPost]
+        [ResponseType(typeof(List<TinyProfileDto>))]
         public async Task<IHttpActionResult> Search(PatternModel pattern)
         {
            var result= await _profileRepository.Search(pattern.Pattern);
@@ -115,6 +124,10 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         }
 
 
+        /// <summary>
+        /// test
+        /// </summary>
+        /// <returns></returns>
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("checkactivity")]
         [System.Web.Http.HttpPost]

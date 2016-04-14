@@ -15,6 +15,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Swashbuckle.Application;
 
 namespace GiftKnacksProject.Api
 {
@@ -43,12 +44,20 @@ namespace GiftKnacksProject.Api
         {
             HookConnectionStrings();
             var config = new HttpConfiguration();
-            var container = ConfigureWindsor(GlobalConfiguration.Configuration);
+
+            config.EnableSwagger(d => {
+                d.SingleApiVersion("v1", "Проект обмена подарками API");
+                d.IncludeXmlComments(GetXmlCommentsPathForControllers());
+
+                var container = ConfigureWindsor(GlobalConfiguration.Configuration);
             ConfigureOAuth(app, container);
             GlobalConfiguration.Configure(c => WebApiConfig.Register(c, container));
-           
+         
+               
+            }).EnableSwaggerUi();
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+
             app.Map("/signalr", map =>
             {
                 map.UseCors(SignalrCorsOptions.Value);
@@ -69,8 +78,17 @@ namespace GiftKnacksProject.Api
            
         }
 
+        protected  string GetXmlCommentsPathForControllers()
+        {
+            var test= System.String.Format(@"{0}bin\GiftKnacksProject.Api.Controllers.XML", System.AppDomain.CurrentDomain.BaseDirectory);
+            return test;
+        }
 
-   
+        protected string GetXmlCommentsPathForModels()
+        {
+             return System.String.Format(@"{0}bin\GiftKnacksProject.Api.Dto.XML", System.AppDomain.CurrentDomain.BaseDirectory);
+        }
+
 
 
         public void ConfigureOAuth(IAppBuilder app, IWindsorContainer container)
