@@ -116,7 +116,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("search")]
         [System.Web.Http.HttpPost]
-        [ResponseType(typeof(List<TinyProfileDto>))]
+
         public async Task<IHttpActionResult> Search(PatternModel pattern)
         {
            var result= await _profileRepository.Search(pattern.Pattern);

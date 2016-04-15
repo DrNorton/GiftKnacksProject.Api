@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Reflection;
@@ -45,16 +46,25 @@ namespace GiftKnacksProject.Api
             HookConnectionStrings();
             var config = new HttpConfiguration();
 
-            config.EnableSwagger(d => {
-                d.SingleApiVersion("v1", "Проект обмена подарками API");
-                d.IncludeXmlComments(GetXmlCommentsPathForControllers());
-
-                var container = ConfigureWindsor(GlobalConfiguration.Configuration);
-            ConfigureOAuth(app, container);
-            GlobalConfiguration.Configure(c => WebApiConfig.Register(c, container));
          
-               
-            }).EnableSwaggerUi();
+
+            var container = ConfigureWindsor(GlobalConfiguration.Configuration);
+            ConfigureOAuth(app, container);
+            GlobalConfiguration.Configure(
+                c =>
+                {
+                    WebApiConfig.Register(c, container);
+                    c.EnableSwagger(d => {
+                        d.SingleApiVersion("v1", "Проект обмена подарками API");
+                        d.IncludeXmlComments(GetXmlCommentsPathForControllers());
+                        d.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                    }).EnableSwaggerUi();
+                }
+                
+                );
+
+         
+
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
 
