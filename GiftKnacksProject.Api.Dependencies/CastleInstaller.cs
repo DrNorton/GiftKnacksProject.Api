@@ -15,9 +15,6 @@ namespace GiftKnacksProject.Api.Dependencies
             container.Kernel.Resolver.AddSubResolver(new CollectionResolver(container.Kernel, true));
             var signalrDependency = new SignalrDependencyResolver(container.Kernel);
             GlobalHost.DependencyResolver = signalrDependency;
-
-
-
             return container;
         }
     }
