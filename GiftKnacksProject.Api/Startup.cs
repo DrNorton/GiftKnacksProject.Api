@@ -57,6 +57,7 @@ namespace GiftKnacksProject.Api
                     c.EnableSwagger(d => {
                         d.SingleApiVersion("v1", "Проект обмена подарками API");
                         d.IncludeXmlComments(GetXmlCommentsPathForControllers());
+                        d.IncludeXmlComments(GetXmlCommentsPathForModels());
                         d.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
                     }).EnableSwaggerUi();
                 }
