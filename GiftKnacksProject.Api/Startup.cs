@@ -91,13 +91,13 @@ namespace GiftKnacksProject.Api
 
         protected  string GetXmlCommentsPathForControllers()
         {
-            var test= System.String.Format(@"{0}bin\GiftKnacksProject.Api.Controllers.XML", System.AppDomain.CurrentDomain.BaseDirectory);
+            var test= System.String.Format(@"{0}bin\Documentation\GiftKnacksProject.Api.Controllers.XML", System.AppDomain.CurrentDomain.BaseDirectory);
             return test;
         }
 
         protected string GetXmlCommentsPathForModels()
         {
-             return System.String.Format(@"{0}bin\GiftKnacksProject.Api.Dto.XML", System.AppDomain.CurrentDomain.BaseDirectory);
+             return System.String.Format(@"{0}bin\Documentation\GiftKnacksProject.Api.Dto.XML", System.AppDomain.CurrentDomain.BaseDirectory);
         }
 
 
