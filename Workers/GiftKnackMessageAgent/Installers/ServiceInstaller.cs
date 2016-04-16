@@ -21,6 +21,7 @@ namespace GiftKnackMessageAgent.Installers
         {
             container.Register(Component.For<Functions>().LifestyleTransient());
             container.Register(Component.For<IChatMessageFromMqProcessor>().ImplementedBy<ChatMessageFromMqProcessor>().LifestyleTransient());
+
             var endpointUrl = CloudConfigurationManager.GetSetting("DocumentDbEndpointUrl");
             var authorizationKey = CloudConfigurationManager.GetSetting("DocumentDbAuthorizationKey");
             var databaseName = CloudConfigurationManager.GetSetting("DocumentDatabaseName");
@@ -31,7 +32,14 @@ namespace GiftKnackMessageAgent.Installers
               .DependsOn(Dependency.OnValue("client",
                  new DocumentClient(new Uri(endpointUrl), authorizationKey)),
                   Dependency.OnValue("databasename", databaseName)).LifestyleTransient());
-          
+
+            var baseUrl = CloudConfigurationManager.GetSetting("ApiUrl");
+            if (baseUrl == null)
+            {
+                throw new Exception("ApiUrl not exist");
+            }
+            container.Register(Component.For<IRealTimePushNotificationService>().ImplementedBy<RealTimePushNotificationService>().DependsOn(Dependency.OnValue("baseUrl", baseUrl)).LifestyleTransient());
+
         }
     }
 }

@@ -30,7 +30,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.Route("Send")]
         [System.Web.Http.HttpPost]
-        public async Task<IHttpActionResult> Send(JArray notifications)
+        public async Task<IHttpActionResult> SendNotification(JArray notifications)
         {
             string data = notifications.ToString();
             //Фигачим с базовым классом
@@ -55,5 +55,9 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
            
             return SuccessApiResult(receivedNotification);
         }
+
+
+
+
     }
 }

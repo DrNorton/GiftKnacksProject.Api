@@ -166,6 +166,18 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\GiftKnacksProject.Api.Dao\GiftKnacksProject.Api.Dao.csproj">
+      <Project>{ff0fa806-2745-4d30-93ba-e1fd8c171d21}</Project>
+      <Name>GiftKnacksProject.Api.Dao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GiftKnacksProject.Api.Dto\GiftKnacksProject.Api.Dto.csproj">
+      <Project>{ca6f7446-8c7f-4909-9a02-2203565598c9}</Project>
+      <Name>GiftKnacksProject.Api.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GiftKnacksProject.Api.EfDao\GiftKnacksProject.Api.EfDao.csproj">
+      <Project>{722e5d82-f83e-43d7-af6f-dd1d16de2741}</Project>
+      <Name>GiftKnacksProject.Api.EfDao</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GiftKnackAgentCore\GiftKnackAgentCore.csproj">
       <Project>{153730d7-c316-492b-b4f5-23d280d93879}</Project>
       <Name>GiftKnackAgentCore</Name>

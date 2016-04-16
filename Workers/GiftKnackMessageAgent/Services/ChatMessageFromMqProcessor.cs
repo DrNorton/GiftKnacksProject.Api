@@ -19,13 +19,13 @@ namespace GiftKnackMessageAgent.Services
             _noSqlDatabaseRepository = noSqlDatabaseRepository;
         }
 
-        public async Task ProcessMessage(BrokeredMessage brokeredMessage)
+        public async Task<ChatMqMessage> ProcessMessage(BrokeredMessage brokeredMessage)
         {
             var body = brokeredMessage.GetBody<string>();
             var message = JsonConvert.DeserializeObject<ChatMqMessage>(body);
             await _noSqlDatabaseRepository.SaveMessageToLastMessages(message);
             await _noSqlDatabaseRepository.SaveMessageToAllMessages(message);
-            return;
+            return message;
         }
     }
 }

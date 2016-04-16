@@ -60,6 +60,7 @@
     <Compile Include="ProcessedNotifications\Infos\AddReferenceInfo.cs" />
     <Compile Include="ProcessedNotifications\Infos\CloseItemInfo.cs" />
     <Compile Include="ProcessedNotifications\Infos\CloseJoinInfo.cs" />
+    <Compile Include="ProcessedNotifications\Infos\NewMessageInfo.cs" />
     <Compile Include="ProcessedNotifications\Infos\TotalClosedInfo.cs" />
     <Compile Include="ProcessedNotifications\Notification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
