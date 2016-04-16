@@ -63,7 +63,7 @@ namespace GiftKnacksProject.Api.Services.Services.ChatMessages
             var messages =
                 _databaseClient.CreateDocumentQuery<MessageDbSchema>(collection.DocumentsLink)
                     .Where(x => x.DialogId == id)
-                    .OrderByDescending(x => x.Time)
+                    .OrderBy(x => x.Time)
                     .ToList();
 
             foreach (var message in messages)
