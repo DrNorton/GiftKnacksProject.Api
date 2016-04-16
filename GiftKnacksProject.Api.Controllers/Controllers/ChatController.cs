@@ -64,8 +64,6 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         {
             var currentUser = long.Parse(User.Identity.GetUserId());
             var dialogList = await _chatMessageService.GetMessagesFromDialog(currentUser, getdialogs.Recipient);
-            if (dialogList.Any())
-            {
                 var profiles= await _profileRepository.GetTinyProfiles(new List<long>() {currentUser, getdialogs.Recipient});
                 var members=new JObject();
                 foreach (var profile in profiles)
@@ -79,9 +77,6 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
                         });
                 }
                 return SuccessApiResult(new DialogWithMessagesDto() {Members = members, Messages = dialogList});
-
-            }
-            return SuccessApiResult(new DialogWithMessagesDto() { });
 
         }
 

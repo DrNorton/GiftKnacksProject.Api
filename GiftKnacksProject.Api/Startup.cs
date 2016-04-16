@@ -11,6 +11,7 @@ using System.Web.Http;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using FamilyTasks.Api;
+using GiftKnacksProject.Api.App_Start;
 using GiftKnacksProject.Api.Dependencies;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
@@ -54,14 +55,8 @@ namespace GiftKnacksProject.Api
                 c =>
                 {
                     WebApiConfig.Register(c, container);
-                    c.EnableSwagger(d => {
-                        d.SingleApiVersion("v1", "Проект обмена подарками API");
-                        d.IncludeXmlComments(GetXmlCommentsPathForControllers());
-                        d.IncludeXmlComments(GetXmlCommentsPathForModels());
-                        d.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-                    }).EnableSwaggerUi();
+                    SwaggerConfig.Register(c);
                 }
-                
                 );
 
          
@@ -89,16 +84,7 @@ namespace GiftKnacksProject.Api
            
         }
 
-        protected  string GetXmlCommentsPathForControllers()
-        {
-            var test= System.String.Format(@"{0}bin\Documentation\GiftKnacksProject.Api.Controllers.XML", System.AppDomain.CurrentDomain.BaseDirectory);
-            return test;
-        }
-
-        protected string GetXmlCommentsPathForModels()
-        {
-             return System.String.Format(@"{0}bin\Documentation\GiftKnacksProject.Api.Dto.XML", System.AppDomain.CurrentDomain.BaseDirectory);
-        }
+   
 
 
 
