@@ -137,6 +137,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Installers\RepositoryInstaller.cs" />
     <Compile Include="Installers\ServiceInstaller.cs" />
     <Compile Include="JobActivator.cs" />
     <Compile Include="Program.cs" />
