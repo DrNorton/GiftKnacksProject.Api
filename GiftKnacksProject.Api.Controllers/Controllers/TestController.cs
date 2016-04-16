@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using GiftKnacksProject.Api.Controllers.ApiResults;
+using GiftKnacksProject.Api.Controllers.Models;
 using GiftKnacksProject.Api.Dto.Dtos.Reference;
 
 namespace GiftKnacksProject.Api.Controllers.Controllers
@@ -40,14 +41,21 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         }
 
 
+
+
         [System.Web.Http.Route("test")]
-        [System.Web.Http.HttpGet]
-        public async Task<IHttpActionResult> Test()
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> Test(IdModel id)
         {
-            return SuccessApiResult("test");
+            return SuccessApiResult(new TestResult() {Id=id});
         }
 
 
         
+    }
+
+    public class TestResult
+    {
+        public IdModel Id { get; set; }
     }
 }
