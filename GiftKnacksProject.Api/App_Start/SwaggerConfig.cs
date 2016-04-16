@@ -28,21 +28,18 @@ namespace GiftKnacksProject.Api.App_Start
 
         protected static string GetXmlCommentsPathForControllers()
         {
-#if RELEASE
+#if !DEBUG
             return System.String.Format(@"{0}bin\Documentation\GiftKnacksProject.Api.Controllers.XML", System.AppDomain.CurrentDomain.BaseDirectory);
-#endif
-#if DEBUG
+#else
             return System.String.Format(@"{0}bin\GiftKnacksProject.Api.Controllers.XML", System.AppDomain.CurrentDomain.BaseDirectory);
 #endif
         }
 
         protected static string GetXmlCommentsPathForModels()
         {
-#if RELEASE
-             return System.String.Format(@"{0}bin\Documentation\GiftKnacksProject.Api.Dto.XML", System.AppDomain.CurrentDomain.BaseDirectory);
-#endif
-
-#if DEBUG
+#if !DEBUG
+            return System.String.Format(@"{0}bin\Documentation\GiftKnacksProject.Api.Dto.XML", System.AppDomain.CurrentDomain.BaseDirectory);
+#else
             return System.String.Format(@"{0}bin\GiftKnacksProject.Api.Dto.XML", System.AppDomain.CurrentDomain.BaseDirectory);
 #endif
         }
