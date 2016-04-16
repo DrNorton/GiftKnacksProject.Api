@@ -10,6 +10,7 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using Microsoft.Azure;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Azure.WebJobs.ServiceBus;
 using Newtonsoft.Json;
 
 namespace GiftKnackNotificationAgent
@@ -23,8 +24,17 @@ namespace GiftKnackNotificationAgent
         {
             HookConnectionStrings();
             var container = new WindsorContainer().Install(FromAssembly.This());
-            var config = new JobHostConfiguration() {JobActivator = new JobActivator(container) };
-            config.UseServiceBus();
+            var config = new JobHostConfiguration()
+            {
+                JobActivator = new JobActivator(container),
+                StorageConnectionString = CloudConfigurationManager.GetSetting("AzureWebJobsStorage"),
+                DashboardConnectionString = CloudConfigurationManager.GetSetting("AzureWebJobsDashboard"),
+                
+            };
+            config.UseServiceBus(new ServiceBusConfiguration()
+            {
+                ConnectionString = CloudConfigurationManager.GetSetting("AzureWebJobsServiceBus")
+            });
             var host = new JobHost(config);
 
             // The following code ensures that the WebJob will be running continuously
