@@ -38,10 +38,8 @@ namespace GiftKnacksProject.Api.Dependencies.Installers
                 .DependsOn(Dependency.OnValue("notififactionQueueClient",
                     QueueClient.CreateFromConnectionString(notificationConnectionQmString, "knackgiftnotifications")),
                     Dependency.OnValue("databasename", databaseName)).LifestyleTransient());
-
             container.Register(Component.For<IChatMessageService>().ImplementedBy<ChatMessageService>()
               .DependsOn(Dependency.OnValue("chatQueueClient", QueueClient.CreateFromConnectionString(messageMqConnectionQmString, "knackgiftmessages")),Dependency.OnValue("databaseName", databaseName)).LifestyleTransient());
-
             container.Register(Component.For<IUserOnlineSignalService>().ImplementedBy<UserOnlineSignalService>().LifeStyle.Singleton.Start());
         }
     }
