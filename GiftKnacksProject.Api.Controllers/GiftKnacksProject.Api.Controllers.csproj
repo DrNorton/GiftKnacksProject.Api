@@ -273,6 +273,7 @@
     <Compile Include="Hubs\OnlineHub.cs" />
     <Compile Include="Models\AddCommentToGiftDto.cs" />
     <Compile Include="Models\AddCommentToWishDto.cs" />
+    <Compile Include="Models\AuthModel.cs" />
     <Compile Include="Models\ChangePasswordModel.cs" />
     <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\IdentityModel.cs" />

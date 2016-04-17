@@ -28,6 +28,7 @@ using GiftKnacksProject.Api.Services;
 using GiftKnacksProject.Api.Services.Interfaces;
 using GiftKnacksProject.Api.Services.Services;
 using Microsoft.AspNet.Identity;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace GiftKnacksProject.Api.Controllers.Controllers
@@ -57,6 +58,34 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             _mailer = mailer;
         }
 
+
+        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Route("Auth")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> Auth(AuthModel userModel)
+        {
+            var dict=new Dictionary<string,string>();
+            dict.Add("grant_type", "password");
+            dict.Add("userName", userModel.Login);
+            dict.Add("password", userModel.Password);
+            using (var client = new HttpClient())
+            {
+               var response=await client.PostAsync($"{_urlSettings.ApiUrl}/api/token", new FormUrlEncodedContent(dict));
+               var resultStr=await response.Content.ReadAsStringAsync();
+               var tokenResp=JsonConvert.DeserializeObject<TokenDto>(resultStr);
+                if (String.IsNullOrEmpty(tokenResp.Error) && String.IsNullOrEmpty(tokenResp.ErrorDescription))
+                {
+                    return SuccessApiResult(tokenResp);
+                }
+                else
+                {
+                    return ErrorApiResult(16, tokenResp.Error);
+                }
+                
+            }
+            
+          
+        }
 
 
         // POST api/Account/Register

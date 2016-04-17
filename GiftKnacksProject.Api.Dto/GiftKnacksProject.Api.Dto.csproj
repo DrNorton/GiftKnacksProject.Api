@@ -94,6 +94,7 @@
     <Compile Include="Dtos\Profile\TinyProfileDto.cs" />
     <Compile Include="Dtos\Reference\AddReferenceDto.cs" />
     <Compile Include="Dtos\Reference\ReferenceDto.cs" />
+    <Compile Include="Dtos\TokenDto.cs" />
     <Compile Include="Dtos\Wishes\BasicWishGiftDto.cs" />
     <Compile Include="Dtos\Wishes\EmptyWishDto.cs" />
     <Compile Include="Dtos\Wishes\ImagedWishDto.cs" />
