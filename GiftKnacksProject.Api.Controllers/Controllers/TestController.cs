@@ -47,7 +47,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> Test(IdModel id)
         {
-            return SuccessApiResult(new TestResult() {Id=id});
+            return SuccessApiResult(new TestResult() {Id=id.Id});
         }
 
 
@@ -56,6 +56,6 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
 
     public class TestResult
     {
-        public IdModel Id { get; set; }
+        public long? Id { get; set; }
     }
 }

@@ -51,8 +51,6 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
                     }
                 }
             }
-           
-           
             return SuccessApiResult(receivedNotification);
         }
 
