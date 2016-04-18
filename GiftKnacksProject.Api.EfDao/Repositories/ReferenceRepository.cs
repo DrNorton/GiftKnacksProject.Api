@@ -21,12 +21,35 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
             _context = context;
         }
 
-        public async Task<long> AddReference(long ownerId, long replyerId,byte rate,string text)
+        public async Task<long> AddOrUpdateReference(long ownerId, long replyerId,byte rate,string text)
         {
-            var newReference = new Reference() {OwnerId = ownerId, ReplyerId = replyerId, Text = text, Rate = rate,CreatedTime = DateTime.Now};
-            base.Insert(newReference);
+            var findedReference = _context.Set<Reference>().FirstOrDefault(x => x.OwnerId == ownerId && x.ReplyerId == replyerId);
+            long id;
+            if (findedReference == null)
+            {
+                var newReference = new Reference()
+                {
+                    OwnerId = ownerId,
+                    ReplyerId = replyerId,
+                    Text = text,
+                    Rate = rate,
+                    CreatedTime = DateTime.Now
+                };
+                base.Insert(newReference);
+                id = newReference.Id;
+            }
+            else
+            {
+                findedReference.Rate = rate;
+                findedReference.CreatedTime=DateTime.Now;
+                findedReference.Text = text;
+                base.Update(findedReference);
+                id = findedReference.Id;
+            }
+       
+           
             await _context.SaveChangesAsync();
-            return newReference.Id;
+            return id;
         }
 
         public async Task<List<ReferenceDto>> GetByOwnerId(long ownerId)

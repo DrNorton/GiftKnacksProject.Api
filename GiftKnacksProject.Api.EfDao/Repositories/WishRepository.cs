@@ -91,11 +91,11 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
 
             if (filter.Length != 0)
             {
-                query = query.OrderBy(x => x.Name).Skip(filter.Offset).Take(filter.Length);
+                query = query.OrderByDescending(x => x.User.AvgRate).Skip(filter.Offset).Take(filter.Length);
             }
             else
             {
-                query = query.OrderBy(x => x.Name);
+                query = query.OrderByDescending(x => x.User.AvgRate);
             }
 
             return query.Select(x => new WishDto()

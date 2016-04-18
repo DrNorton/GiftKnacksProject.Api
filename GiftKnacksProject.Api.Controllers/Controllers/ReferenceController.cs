@@ -36,7 +36,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         {
             var replyerId = long.Parse(User.Identity.GetUserId());
             var referenceId=await
-                _referenceRepository.AddReference(referenceDto.OwnerId, replyerId, referenceDto.Rate,
+                _referenceRepository.AddOrUpdateReference(referenceDto.OwnerId, replyerId, referenceDto.Rate,
                     referenceDto.ReferenceText);
             await _notificationService.SentNotificationToQueue(new AddReferenceQueueNotification()
             {

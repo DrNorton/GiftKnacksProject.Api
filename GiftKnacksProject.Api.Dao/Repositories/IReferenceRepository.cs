@@ -6,7 +6,7 @@ namespace GiftKnacksProject.Api.Dao.Repositories
 {
     public interface IReferenceRepository
     {
-        Task<long> AddReference(long ownerId, long replyerId, byte rate, string text);
+        Task<long> AddOrUpdateReference(long ownerId, long replyerId, byte rate, string text);
         Task<List<ReferenceDto>> GetByOwnerId(long ownerId);
         Task<ReferenceDto> GetById(long referenceId);
     }
