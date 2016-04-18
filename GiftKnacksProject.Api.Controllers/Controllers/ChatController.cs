@@ -34,6 +34,10 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         public async Task<IHttpActionResult> Send(SendToChatMessageDto newChatMessage)
         {
             var currentUser = long.Parse(User.Identity.GetUserId());
+            if (currentUser == newChatMessage.To)
+            {
+                return ErrorApiResult(2509, "Нельзя создавать чат с самим собой.");
+            }
             await
                 _chatMessageService.SendMessageToQueue(new ChatMqMessage()
                 {
