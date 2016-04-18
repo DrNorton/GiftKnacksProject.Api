@@ -328,6 +328,10 @@
       <Project>{722e5d82-f83e-43d7-af6f-dd1d16de2741}</Project>
       <Name>GiftKnacksProject.Api.EfDao</Name>
     </ProjectReference>
+    <ProjectReference Include="..\GiftKnacksProject.Api.Helpers\GiftKnacksProject.Api.Helpers.csproj">
+      <Project>{4d2c2555-f671-4268-b729-980ee1fd07d9}</Project>
+      <Name>GiftKnacksProject.Api.Helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GiftKnacksProject.Api.Services\GiftKnacksProject.Api.Services.csproj">
       <Project>{476abd28-c0dc-4fb1-9669-fd10779dbb43}</Project>
       <Name>GiftKnacksProject.Api.Services</Name>

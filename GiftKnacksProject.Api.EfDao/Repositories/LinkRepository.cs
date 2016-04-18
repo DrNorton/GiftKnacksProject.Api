@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GiftKnacksProject.Api.Dao.Repositories;
 using GiftKnacksProject.Api.EfDao.Base;
+using GiftKnacksProject.Api.Helpers;
 
 namespace GiftKnacksProject.Api.EfDao.Repositories
 {
@@ -19,6 +20,13 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
 
         public async  Task<long> LinkWithGift(long userId, long wishId, long giftId)
         {
+            var finded = Db
+                .Set<WishGiftLink>()
+                .FirstOrDefault(x => x.GiftId == giftId && x.WishId == wishId && x.UserId == userId);
+            if (finded != null)
+            {
+                throw new ExceptionWithCode(109,"link already exists");
+            }
             var newLink =  Db.Set<WishGiftLink>().Create();
             newLink.CreatedTime = DateTime.Now;
             newLink.GiftId = giftId;

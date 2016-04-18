@@ -9,6 +9,7 @@ using GiftKnackProject.NotificationTypes;
 using GiftKnacksProject.Api.Controllers.ApiResults;
 using GiftKnacksProject.Api.Dao.Repositories;
 using GiftKnacksProject.Api.Dto.Dtos.Gifts;
+using GiftKnacksProject.Api.Helpers;
 using GiftKnacksProject.Api.Services.Interfaces;
 
 using Microsoft.AspNet.Identity;
@@ -34,14 +35,23 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         public async Task<IHttpActionResult> LinkWithGift(WishGiftLinkDto participantDto)
         {
             var userId = long.Parse(User.Identity.GetUserId());
-            var ownerWishUserId=await _linkRepository.LinkWithGift(userId, participantDto.WishId,participantDto.GiftId);
-            await _notificationService.SentNotificationToQueue(new JoinQueueNotification()
+            try
             {
-                CreatorId = userId,
-                OwnerWish=ownerWishUserId,
-                TargetWishId = participantDto.WishId,
-                TargetGiftId = participantDto.GiftId
-            });
+                var ownerWishUserId =
+                    await _linkRepository.LinkWithGift(userId, participantDto.WishId, participantDto.GiftId);
+                await _notificationService.SentNotificationToQueue(new JoinQueueNotification()
+                {
+                    CreatorId = userId,
+                    OwnerWish = ownerWishUserId,
+                    TargetWishId = participantDto.WishId,
+                    TargetGiftId = participantDto.GiftId
+                });
+            }
+            catch (ExceptionWithCode e)
+            {
+                return ErrorApiResult(e.ErrorCode, e.Message);
+            }
+       
             return EmptyApiResult();
         }
 
