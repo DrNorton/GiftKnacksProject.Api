@@ -9,6 +9,7 @@ namespace GiftKnacksProject.Api.Dto.Dtos.Gifts
     public class FilterDto:PagingDto
     {
         public CountryDto Country { get; set; }
+        public string Category { get; set; }
         public string City { get; set; }
         public string Keyword { get; set; }
         public DateTime? From { get; set; }

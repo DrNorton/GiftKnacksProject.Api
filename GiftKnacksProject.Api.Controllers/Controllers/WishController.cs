@@ -116,6 +116,15 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             return SuccessApiResult(emptyWish);
         }
 
+
+        [System.Web.Http.Route("GetWishCategories")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> GetWishCategories()
+        {
+            var categories = await _wishRepository.GetWishCategories();
+            return SuccessApiResult(categories);
+        }
+
         [System.Web.Http.Authorize]
         [System.Web.Http.Route("AddWish")]
         [System.Web.Http.HttpPost]

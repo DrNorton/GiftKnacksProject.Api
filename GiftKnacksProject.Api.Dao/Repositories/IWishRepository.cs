@@ -20,5 +20,6 @@ namespace GiftKnacksProject.Api.Dao.Repositories
         Task<BasicWishGiftDto> GetBasicInfo(long l);
         Task<List<ParticipantDto>> GetAllParticipants(long closedItemId);
         Task<WishDto> UpdateWish(long userId, WishDto updatedWish);
+        Task<List<WishCategoryDto>> GetWishCategories();
     }
 }

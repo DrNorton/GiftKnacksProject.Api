@@ -126,7 +126,16 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             return SuccessApiResult(updatedResult);
         }
 
+        [System.Web.Http.Authorize]
+        [System.Web.Http.Route("GetJoined")]
+        [System.Web.Http.HttpPost]
+        public async Task<IHttpActionResult> GetJoined()
+        {
+            var userId = long.Parse(User.Identity.GetUserId());
 
+           // var updatedResult = await _giftRepository.UpdateGift(userId, updatedGift);
+            return SuccessApiResult(true);
+        }
 
     }
 }

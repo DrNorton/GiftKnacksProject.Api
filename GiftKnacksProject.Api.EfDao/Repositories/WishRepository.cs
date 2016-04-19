@@ -27,7 +27,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
         public async Task<EmptyWishDto> GetEmptyDtoWithAdditionalInfo(long userId)
         {
             var profile = Db.Set<Profile>().FirstOrDefault(x=>x.Id==userId);
-            var wishCategories = Db.Set<WishCategory>().Where(x=>! x.WishCategories1.Any()).Select(x=>new WishCategoryDto(){Description = x.Description,Name = x.Name,ParentName=x.WishCategory1.Name}).ToList();
+            var wishCategories=await GetWishCategories();
             var country = profile.Country == null
                 ? null
                 : new CountryDto()
@@ -40,6 +40,22 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 WishCategories = wishCategories,
                 FromDate = DateTime.Now,
                 City = profile.City};
+        }
+
+        public  Task<List<WishCategoryDto>> GetWishCategories()
+        {
+           return 
+                Db.Set<WishCategory>()
+                    .Where(x => !x.WishCategories1.Any())
+                    .Select(
+                        x =>
+                            new WishCategoryDto()
+                            {
+                                Description = x.Description,
+                                Name = x.Name,
+                                ParentName = x.WishCategory1.Name
+                            })
+                    .ToListAsync();
         }
         
         //Добавление вишеа
@@ -80,6 +96,12 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 if (!String.IsNullOrEmpty(filter.City))
                 {
                     query = query.Where(x => x.Country1.Name.Contains(filter.City));
+                }
+
+                if (!String.IsNullOrEmpty(filter.Category))
+                {
+                    var category = Db.Set<WishCategory>().FirstOrDefault(x => x.Name == filter.Category);
+                    query = query.Where(x => x.CategoryId == category.Id);
                 }
 
                 if (!(filter.From == null && filter.To == null))
