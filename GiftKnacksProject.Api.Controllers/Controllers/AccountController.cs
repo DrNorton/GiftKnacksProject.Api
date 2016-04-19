@@ -157,16 +157,11 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         /// test
         /// </summary>
         /// <returns></returns>
-        [System.Web.Http.AllowAnonymous]
+        [System.Web.Http.Authorize]
         [System.Web.Http.Route("checkactivity")]
         [System.Web.Http.HttpPost]
         public async Task<IHttpActionResult> CheckActivity()
        {
-            var name = User.Identity.GetUserName();
-            if (String.IsNullOrEmpty(User.Identity.GetUserId()))
-            {
-                return ErrorApiResult(401, "Unauthorizate");
-            }
             var userId = long.Parse(User.Identity.GetUserId());
             var result = await _profileRepository.CheckActivity(userId);
             return SuccessApiResult(result);
