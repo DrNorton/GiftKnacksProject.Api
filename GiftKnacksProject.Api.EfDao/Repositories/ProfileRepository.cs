@@ -143,7 +143,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
         {
             var isWishesExists= await Db.Set<Wish>().AnyAsync(x => x.UserId == userId);
             var isGiftExists = await Db.Set<Gift>().AnyAsync(x => x.UserId == userId);
-            return isWishesExists && isGiftExists;
+            return isWishesExists || isGiftExists;
         }
 
         public Task UpdateProfile(ProfileDto profile)

@@ -4,45 +4,45 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="06c9e8a618134ed88f8fcf8c73470beb" Name="Diagram1" ZoomLevel="90">
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.Comment" Width="1.5" PointX="3" PointY="25.875" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.Contact" Width="1.5" PointX="5.25" PointY="7.75" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.ContactType" Width="1.5" PointX="3" PointY="4.125" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.Country" Width="1.5" PointX="0.75" PointY="8" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.GiftLinkComment" Width="1.5" PointX="5.25" PointY="19.375" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.Gift" Width="1.5" PointX="3" PointY="11.875" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.GiftWishStatus" Width="1.5" PointX="0.75" PointY="18" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.Profile" Width="1.5" PointX="3" PointY="7.125" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.Reference" Width="1.5" PointX="3" PointY="16.75" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.User" Width="1.5" PointX="0.75" PointY="13.125" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.WishCategory" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.Wish" Width="1.5" PointX="6" PointY="12.25" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.WishGiftLink" Width="1.5" PointX="8.25" PointY="13.5" />
-        <EntityTypeShape EntityType="prodgiftknackdatabaseModel.WishLinkComment" Width="1.5" PointX="8.25" PointY="19.625" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_CommentLink" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_CommentLinkG" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Comments_Comments_Parent" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Comments_ToUsers" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_ContactsTypes_ToContacts" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Users_ToContacts" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Gifts_Countries" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Profiles_Countries" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Wishes_Countries" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_GiftLink" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Gifts_GiftWishStatuses" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Gifts_Users" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_WishGiftLinks_Gifts" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Wishes_GiftWishStatuses" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Profiles_USERS" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_References_OwnerUserId" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_References_ReplyUserId" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Wishes_Users" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Wishes_Users_Closer" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_WishGiftLinks_Users" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Parent_WishCategories" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_Wishes_Categories" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_WishGiftLinks_Wishes" />
-        <AssociationConnector Association="prodgiftknackdatabaseModel.FK_WishLink" />
+      <Diagram DiagramId="72f85fbfae55443db2322625e12cf1ee" Name="Diagram1">
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.Comment" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.Contact" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.ContactType" Width="1.5" PointX="6" PointY="24.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.Country" Width="1.5" PointX="5.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.GiftLinkComment" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.Gift" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.GiftWishStatus" Width="1.5" PointX="5.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.Profile" Width="1.5" PointX="6" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.Reference" Width="1.5" PointX="3" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.User" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.WishCategory" Width="1.5" PointX="5.75" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.Wish" Width="1.5" PointX="8" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.WishGiftLink" Width="1.5" PointX="10.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.WishLinkComment" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_CommentLink" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_CommentLinkG" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Comments_Comments_Parent" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Comments_ToUsers" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_ContactsTypes_ToContacts" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Users_ToContacts" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Gifts_Countries" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Profiles_Countries" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Wishes_Countries" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_GiftLink" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Gifts_GiftWishStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Gifts_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_WishGiftLinks_Gifts" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Wishes_GiftWishStatuses" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Profiles_USERS" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_References_OwnerUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_References_ReplyUserId" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Wishes_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Wishes_Users_Closer" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_WishGiftLinks_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Parent_WishCategories" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_Wishes_Categories" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_WishGiftLinks_Wishes" ManuallyRouted="false" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_WishLink" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

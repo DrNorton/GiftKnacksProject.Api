@@ -14,6 +14,7 @@ namespace GiftKnacksProject.Api.EfDao
     
     public partial class Country
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Country()
         {
             this.Gifts = new HashSet<Gift>();
@@ -24,8 +25,11 @@ namespace GiftKnacksProject.Api.EfDao
         public string Id { get; set; }
         public string Name { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gift> Gifts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profiles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wish> Wishes { get; set; }
     }
 }

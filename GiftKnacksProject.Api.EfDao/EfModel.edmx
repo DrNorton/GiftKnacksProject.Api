@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="GiftKnacks_dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="testgiftknackdatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="Id" />
@@ -62,6 +62,7 @@
           <Property Name="Benefit" Type="nvarchar" MaxLength="150" />
           <Property Name="Description" Type="nvarchar" MaxLength="150" />
           <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="GiftWishStatuses">
           <Key>
@@ -141,6 +142,7 @@
           <Property Name="Emergency" Type="int" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="WishUserCloserId" Type="bigint" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="WishGiftLinks">
           <Key>
@@ -454,7 +456,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="GiftKnacks_dbModelStoreContainer">
+        <EntityContainer Name="testgiftknackdatabaseModelStoreContainer">
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactTypes" EntityType="Self.ContactTypes" Schema="dbo" store:Type="Tables" />
@@ -566,122 +568,11 @@
             <End Role="WishLinkComments" EntitySet="WishLinkComments" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="GiftKnacks_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="giftKnacksConnectionString" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Comments" EntityType="GiftKnacks_dbModel.Comment" />
-          <EntitySet Name="Contacts" EntityType="GiftKnacks_dbModel.Contact" />
-          <EntitySet Name="ContactTypes" EntityType="GiftKnacks_dbModel.ContactType" />
-          <EntitySet Name="Countries" EntityType="GiftKnacks_dbModel.Country" />
-          <EntitySet Name="GiftLinkComments" EntityType="GiftKnacks_dbModel.GiftLinkComment" />
-          <EntitySet Name="Gifts" EntityType="GiftKnacks_dbModel.Gift" />
-          <EntitySet Name="GiftWishStatuses" EntityType="GiftKnacks_dbModel.GiftWishStatus" />
-          <EntitySet Name="Profiles" EntityType="GiftKnacks_dbModel.Profile" />
-          <EntitySet Name="References" EntityType="GiftKnacks_dbModel.Reference" />
-          <EntitySet Name="Users" EntityType="GiftKnacks_dbModel.User" />
-          <EntitySet Name="WishCategories" EntityType="GiftKnacks_dbModel.WishCategory" />
-          <EntitySet Name="Wishes" EntityType="GiftKnacks_dbModel.Wish" />
-          <EntitySet Name="WishGiftLinks" EntityType="GiftKnacks_dbModel.WishGiftLink" />
-          <EntitySet Name="WishLinkComments" EntityType="GiftKnacks_dbModel.WishLinkComment" />
-          <AssociationSet Name="FK_CommentLink" Association="GiftKnacks_dbModel.FK_CommentLink">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="WishLinkComment" EntitySet="WishLinkComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CommentLinkG" Association="GiftKnacks_dbModel.FK_CommentLinkG">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="GiftLinkComment" EntitySet="GiftLinkComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_Comments_Parent" Association="GiftKnacks_dbModel.FK_Comments_Comments_Parent">
-            <End Role="Comment" EntitySet="Comments" />
-            <End Role="Comment1" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_ToUsers" Association="GiftKnacks_dbModel.FK_Comments_ToUsers">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Comment" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ContactsTypes_ToContacts" Association="GiftKnacks_dbModel.FK_ContactsTypes_ToContacts">
-            <End Role="ContactType" EntitySet="ContactTypes" />
-            <End Role="Contact" EntitySet="Contacts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Users_ToContacts" Association="GiftKnacks_dbModel.FK_Users_ToContacts">
-            <End Role="Profile" EntitySet="Profiles" />
-            <End Role="Contact" EntitySet="Contacts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gifts_Countries" Association="GiftKnacks_dbModel.FK_Gifts_Countries">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="Gift" EntitySet="Gifts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Profiles_Countries" Association="GiftKnacks_dbModel.FK_Profiles_Countries">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="Profile" EntitySet="Profiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wishes_Countries" Association="GiftKnacks_dbModel.FK_Wishes_Countries">
-            <End Role="Country" EntitySet="Countries" />
-            <End Role="Wish" EntitySet="Wishes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GiftLink" Association="GiftKnacks_dbModel.FK_GiftLink">
-            <End Role="Gift" EntitySet="Gifts" />
-            <End Role="GiftLinkComment" EntitySet="GiftLinkComments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gifts_GiftWishStatuses" Association="GiftKnacks_dbModel.FK_Gifts_GiftWishStatuses">
-            <End Role="GiftWishStatus" EntitySet="GiftWishStatuses" />
-            <End Role="Gift" EntitySet="Gifts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gifts_Users" Association="GiftKnacks_dbModel.FK_Gifts_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Gift" EntitySet="Gifts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishGiftLinks_Gifts" Association="GiftKnacks_dbModel.FK_WishGiftLinks_Gifts">
-            <End Role="Gift" EntitySet="Gifts" />
-            <End Role="WishGiftLink" EntitySet="WishGiftLinks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wishes_GiftWishStatuses" Association="GiftKnacks_dbModel.FK_Wishes_GiftWishStatuses">
-            <End Role="GiftWishStatus" EntitySet="GiftWishStatuses" />
-            <End Role="Wish" EntitySet="Wishes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Profiles_USERS" Association="GiftKnacks_dbModel.FK_Profiles_USERS">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Profile" EntitySet="Profiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_References_OwnerUserId" Association="GiftKnacks_dbModel.FK_References_OwnerUserId">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Reference" EntitySet="References" />
-          </AssociationSet>
-          <AssociationSet Name="FK_References_ReplyUserId" Association="GiftKnacks_dbModel.FK_References_ReplyUserId">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Reference" EntitySet="References" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wishes_Users" Association="GiftKnacks_dbModel.FK_Wishes_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Wish" EntitySet="Wishes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wishes_Users_Closer" Association="GiftKnacks_dbModel.FK_Wishes_Users_Closer">
-            <End Role="User" EntitySet="Users" />
-            <End Role="Wish" EntitySet="Wishes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishGiftLinks_Users" Association="GiftKnacks_dbModel.FK_WishGiftLinks_Users">
-            <End Role="User" EntitySet="Users" />
-            <End Role="WishGiftLink" EntitySet="WishGiftLinks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Parent_WishCategories" Association="GiftKnacks_dbModel.FK_Parent_WishCategories">
-            <End Role="WishCategory" EntitySet="WishCategories" />
-            <End Role="WishCategory1" EntitySet="WishCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Wishes_Categories" Association="GiftKnacks_dbModel.FK_Wishes_Categories">
-            <End Role="WishCategory" EntitySet="WishCategories" />
-            <End Role="Wish" EntitySet="Wishes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishGiftLinks_Wishes" Association="GiftKnacks_dbModel.FK_WishGiftLinks_Wishes">
-            <End Role="Wish" EntitySet="Wishes" />
-            <End Role="WishGiftLink" EntitySet="WishGiftLinks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_WishLink" Association="GiftKnacks_dbModel.FK_WishLink">
-            <End Role="Wish" EntitySet="Wishes" />
-            <End Role="WishLinkComment" EntitySet="WishLinkComments" />
-          </AssociationSet>
-        </EntityContainer>
+      <Schema Namespace="testgiftknackdatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Comment">
           <Key>
             <PropertyRef Name="Id" />
@@ -689,13 +580,13 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ParentCommentId" Type="Int64" />
           <Property Name="UserId" Type="Int64" Nullable="false" />
-          <Property Name="Text" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Text" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UpdateTime" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="WishLinkComments" Relationship="GiftKnacks_dbModel.FK_CommentLink" FromRole="Comment" ToRole="WishLinkComment" />
-          <NavigationProperty Name="GiftLinkComments" Relationship="GiftKnacks_dbModel.FK_CommentLinkG" FromRole="Comment" ToRole="GiftLinkComment" />
-          <NavigationProperty Name="Comments1" Relationship="GiftKnacks_dbModel.FK_Comments_Comments_Parent" FromRole="Comment" ToRole="Comment1" />
-          <NavigationProperty Name="Comment1" Relationship="GiftKnacks_dbModel.FK_Comments_Comments_Parent" FromRole="Comment1" ToRole="Comment" />
-          <NavigationProperty Name="User" Relationship="GiftKnacks_dbModel.FK_Comments_ToUsers" FromRole="Comment" ToRole="User" />
+          <NavigationProperty Name="WishLinkComments" Relationship="Self.FK_CommentLink" FromRole="Comments" ToRole="WishLinkComments" />
+          <NavigationProperty Name="GiftLinkComments" Relationship="Self.FK_CommentLinkG" FromRole="Comments" ToRole="GiftLinkComments" />
+          <NavigationProperty Name="Comments1" Relationship="Self.FK_Comments_Comments_Parent" FromRole="Comments" ToRole="Comments1" />
+          <NavigationProperty Name="Comment1" Relationship="Self.FK_Comments_Comments_Parent" FromRole="Comments1" ToRole="Comments" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Comments_ToUsers" FromRole="Comments" ToRole="Users" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -706,8 +597,8 @@
           <Property Name="UserId" Type="Int64" Nullable="false" />
           <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MainContact" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ContactType" Relationship="GiftKnacks_dbModel.FK_ContactsTypes_ToContacts" FromRole="Contact" ToRole="ContactType" />
-          <NavigationProperty Name="Profile" Relationship="GiftKnacks_dbModel.FK_Users_ToContacts" FromRole="Contact" ToRole="Profile" />
+          <NavigationProperty Name="ContactType" Relationship="Self.FK_ContactsTypes_ToContacts" FromRole="Contacts" ToRole="ContactTypes" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_Users_ToContacts" FromRole="Contacts" ToRole="Profiles" />
         </EntityType>
         <EntityType Name="ContactType">
           <Key>
@@ -715,17 +606,17 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Contacts" Relationship="GiftKnacks_dbModel.FK_ContactsTypes_ToContacts" FromRole="ContactType" ToRole="Contact" />
+          <NavigationProperty Name="Contacts" Relationship="Self.FK_ContactsTypes_ToContacts" FromRole="ContactTypes" ToRole="Contacts" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Gifts" Relationship="GiftKnacks_dbModel.FK_Gifts_Countries" FromRole="Country" ToRole="Gift" />
-          <NavigationProperty Name="Profiles" Relationship="GiftKnacks_dbModel.FK_Profiles_Countries" FromRole="Country" ToRole="Profile" />
-          <NavigationProperty Name="Wishes" Relationship="GiftKnacks_dbModel.FK_Wishes_Countries" FromRole="Country" ToRole="Wish" />
+          <Property Name="Id" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Gifts" Relationship="Self.FK_Gifts_Countries" FromRole="Countries" ToRole="Gifts" />
+          <NavigationProperty Name="Profiles" Relationship="Self.FK_Profiles_Countries" FromRole="Countries" ToRole="Profiles" />
+          <NavigationProperty Name="Wishes" Relationship="Self.FK_Wishes_Countries" FromRole="Countries" ToRole="Wishes" />
         </EntityType>
         <EntityType Name="GiftLinkComment">
           <Key>
@@ -734,8 +625,8 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CommentId" Type="Int64" Nullable="false" />
           <Property Name="GiftId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Comment" Relationship="GiftKnacks_dbModel.FK_CommentLinkG" FromRole="GiftLinkComment" ToRole="Comment" />
-          <NavigationProperty Name="Gift" Relationship="GiftKnacks_dbModel.FK_GiftLink" FromRole="GiftLinkComment" ToRole="Gift" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_CommentLinkG" FromRole="GiftLinkComments" ToRole="Comments" />
+          <NavigationProperty Name="Gift" Relationship="Self.FK_GiftLink" FromRole="GiftLinkComments" ToRole="Gifts" />
         </EntityType>
         <EntityType Name="Gift">
           <Key>
@@ -752,21 +643,22 @@
           <Property Name="Benefit" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Country1" Relationship="GiftKnacks_dbModel.FK_Gifts_Countries" FromRole="Gift" ToRole="Country" />
-          <NavigationProperty Name="GiftLinkComments" Relationship="GiftKnacks_dbModel.FK_GiftLink" FromRole="Gift" ToRole="GiftLinkComment" />
-          <NavigationProperty Name="GiftWishStatus" Relationship="GiftKnacks_dbModel.FK_Gifts_GiftWishStatuses" FromRole="Gift" ToRole="GiftWishStatus" />
-          <NavigationProperty Name="User" Relationship="GiftKnacks_dbModel.FK_Gifts_Users" FromRole="Gift" ToRole="User" />
-          <NavigationProperty Name="WishGiftLinks" Relationship="GiftKnacks_dbModel.FK_WishGiftLinks_Gifts" FromRole="Gift" ToRole="WishGiftLink" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Country1" Relationship="Self.FK_Gifts_Countries" FromRole="Gifts" ToRole="Countries" />
+          <NavigationProperty Name="GiftLinkComments" Relationship="Self.FK_GiftLink" FromRole="Gifts" ToRole="GiftLinkComments" />
+          <NavigationProperty Name="GiftWishStatus" Relationship="Self.FK_Gifts_GiftWishStatuses" FromRole="Gifts" ToRole="GiftWishStatuses" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Gifts_Users" FromRole="Gifts" ToRole="Users" />
+          <NavigationProperty Name="WishGiftLinks" Relationship="Self.FK_WishGiftLinks_Gifts" FromRole="Gifts" ToRole="WishGiftLinks" />
         </EntityType>
         <EntityType Name="GiftWishStatus">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Code" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gifts" Relationship="GiftKnacks_dbModel.FK_Gifts_GiftWishStatuses" FromRole="GiftWishStatus" ToRole="Gift" />
-          <NavigationProperty Name="Wishes" Relationship="GiftKnacks_dbModel.FK_Wishes_GiftWishStatuses" FromRole="GiftWishStatus" ToRole="Wish" />
+          <NavigationProperty Name="Gifts" Relationship="Self.FK_Gifts_GiftWishStatuses" FromRole="GiftWishStatuses" ToRole="Gifts" />
+          <NavigationProperty Name="Wishes" Relationship="Self.FK_Wishes_GiftWishStatuses" FromRole="GiftWishStatuses" ToRole="Wishes" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -782,11 +674,11 @@
           <Property Name="Birthday" Type="DateTime" Precision="3" />
           <Property Name="HideBirthday" Type="Boolean" Nullable="false" />
           <Property Name="IsFilled" Type="Boolean" Nullable="false" />
-          <Property Name="Gender" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Contacts" Relationship="GiftKnacks_dbModel.FK_Users_ToContacts" FromRole="Profile" ToRole="Contact" />
-          <NavigationProperty Name="Country1" Relationship="GiftKnacks_dbModel.FK_Profiles_Countries" FromRole="Profile" ToRole="Country" />
-          <NavigationProperty Name="User" Relationship="GiftKnacks_dbModel.FK_Profiles_USERS" FromRole="Profile" ToRole="User" />
           <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Contacts" Relationship="Self.FK_Users_ToContacts" FromRole="Profiles" ToRole="Contacts" />
+          <NavigationProperty Name="Country1" Relationship="Self.FK_Profiles_Countries" FromRole="Profiles" ToRole="Countries" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Profiles_USERS" FromRole="Profiles" ToRole="Users" />
         </EntityType>
         <EntityType Name="Reference">
           <Key>
@@ -797,43 +689,43 @@
           <Property Name="Rate" Type="Byte" />
           <Property Name="ReplyerId" Type="Int64" />
           <Property Name="OwnerId" Type="Int64" />
-          <NavigationProperty Name="User" Relationship="GiftKnacks_dbModel.FK_References_OwnerUserId" FromRole="Reference" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="GiftKnacks_dbModel.FK_References_ReplyUserId" FromRole="Reference" ToRole="User" />
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK_References_OwnerUserId" FromRole="References" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_References_ReplyUserId" FromRole="References" ToRole="Users" />
         </EntityType>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="DateRegister" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ConfirmMail" Type="Boolean" Nullable="false" />
           <Property Name="EmailStamp" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Comments" Relationship="GiftKnacks_dbModel.FK_Comments_ToUsers" FromRole="User" ToRole="Comment" />
-          <NavigationProperty Name="Gifts" Relationship="GiftKnacks_dbModel.FK_Gifts_Users" FromRole="User" ToRole="Gift" />
-          <NavigationProperty Name="Profile" Relationship="GiftKnacks_dbModel.FK_Profiles_USERS" FromRole="User" ToRole="Profile" />
-          <NavigationProperty Name="References" Relationship="GiftKnacks_dbModel.FK_References_OwnerUserId" FromRole="User" ToRole="Reference" />
-          <NavigationProperty Name="References1" Relationship="GiftKnacks_dbModel.FK_References_ReplyUserId" FromRole="User" ToRole="Reference" />
-          <NavigationProperty Name="Wishes" Relationship="GiftKnacks_dbModel.FK_Wishes_Users" FromRole="User" ToRole="Wish" />
-          <NavigationProperty Name="Wishes1" Relationship="GiftKnacks_dbModel.FK_Wishes_Users_Closer" FromRole="User" ToRole="Wish" />
-          <NavigationProperty Name="WishGiftLinks" Relationship="GiftKnacks_dbModel.FK_WishGiftLinks_Users" FromRole="User" ToRole="WishGiftLink" />
           <Property Name="LastLoginTime" Type="DateTime" Precision="3" />
           <Property Name="AvgRate" Type="Double" Nullable="false" />
           <Property Name="TotalClosed" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_ToUsers" FromRole="Users" ToRole="Comments" />
+          <NavigationProperty Name="Gifts" Relationship="Self.FK_Gifts_Users" FromRole="Users" ToRole="Gifts" />
+          <NavigationProperty Name="Profile" Relationship="Self.FK_Profiles_USERS" FromRole="Users" ToRole="Profiles" />
+          <NavigationProperty Name="References" Relationship="Self.FK_References_OwnerUserId" FromRole="Users" ToRole="References" />
+          <NavigationProperty Name="References1" Relationship="Self.FK_References_ReplyUserId" FromRole="Users" ToRole="References" />
+          <NavigationProperty Name="Wishes" Relationship="Self.FK_Wishes_Users" FromRole="Users" ToRole="Wishes" />
+          <NavigationProperty Name="Wishes1" Relationship="Self.FK_Wishes_Users_Closer" FromRole="Users" ToRole="Wishes" />
+          <NavigationProperty Name="WishGiftLinks" Relationship="Self.FK_WishGiftLinks_Users" FromRole="Users" ToRole="WishGiftLinks" />
         </EntityType>
         <EntityType Name="WishCategory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="250" FixedLength="true" Unicode="true" />
           <Property Name="ParentId" Type="Int32" />
-          <NavigationProperty Name="WishCategories1" Relationship="GiftKnacks_dbModel.FK_Parent_WishCategories" FromRole="WishCategory" ToRole="WishCategory1" />
-          <NavigationProperty Name="WishCategory1" Relationship="GiftKnacks_dbModel.FK_Parent_WishCategories" FromRole="WishCategory1" ToRole="WishCategory" />
-          <NavigationProperty Name="Wishes" Relationship="GiftKnacks_dbModel.FK_Wishes_Categories" FromRole="WishCategory" ToRole="Wish" />
+          <NavigationProperty Name="WishCategories1" Relationship="Self.FK_Parent_WishCategories" FromRole="WishCategories" ToRole="WishCategories1" />
+          <NavigationProperty Name="WishCategory1" Relationship="Self.FK_Parent_WishCategories" FromRole="WishCategories1" ToRole="WishCategories" />
+          <NavigationProperty Name="Wishes" Relationship="Self.FK_Wishes_Categories" FromRole="WishCategories" ToRole="Wishes" />
         </EntityType>
         <EntityType Name="Wish">
           <Key>
@@ -854,13 +746,14 @@
           <Property Name="Emergency" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="WishUserCloserId" Type="Int64" />
-          <NavigationProperty Name="Country1" Relationship="GiftKnacks_dbModel.FK_Wishes_Countries" FromRole="Wish" ToRole="Country" />
-          <NavigationProperty Name="GiftWishStatus" Relationship="GiftKnacks_dbModel.FK_Wishes_GiftWishStatuses" FromRole="Wish" ToRole="GiftWishStatus" />
-          <NavigationProperty Name="User" Relationship="GiftKnacks_dbModel.FK_Wishes_Users" FromRole="Wish" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="GiftKnacks_dbModel.FK_Wishes_Users_Closer" FromRole="Wish" ToRole="User" />
-          <NavigationProperty Name="WishCategory" Relationship="GiftKnacks_dbModel.FK_Wishes_Categories" FromRole="Wish" ToRole="WishCategory" />
-          <NavigationProperty Name="WishGiftLinks" Relationship="GiftKnacks_dbModel.FK_WishGiftLinks_Wishes" FromRole="Wish" ToRole="WishGiftLink" />
-          <NavigationProperty Name="WishLinkComments" Relationship="GiftKnacks_dbModel.FK_WishLink" FromRole="Wish" ToRole="WishLinkComment" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Country1" Relationship="Self.FK_Wishes_Countries" FromRole="Wishes" ToRole="Countries" />
+          <NavigationProperty Name="GiftWishStatus" Relationship="Self.FK_Wishes_GiftWishStatuses" FromRole="Wishes" ToRole="GiftWishStatuses" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Wishes_Users" FromRole="Wishes" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK_Wishes_Users_Closer" FromRole="Wishes" ToRole="Users" />
+          <NavigationProperty Name="WishCategory" Relationship="Self.FK_Wishes_Categories" FromRole="Wishes" ToRole="WishCategories" />
+          <NavigationProperty Name="WishGiftLinks" Relationship="Self.FK_WishGiftLinks_Wishes" FromRole="Wishes" ToRole="WishGiftLinks" />
+          <NavigationProperty Name="WishLinkComments" Relationship="Self.FK_WishLink" FromRole="Wishes" ToRole="WishLinkComments" />
         </EntityType>
         <EntityType Name="WishGiftLink">
           <Key>
@@ -871,9 +764,9 @@
           <Property Name="WishId" Type="Int64" Nullable="false" />
           <Property Name="GiftId" Type="Int64" Nullable="false" />
           <Property Name="CreatedTime" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Gift" Relationship="GiftKnacks_dbModel.FK_WishGiftLinks_Gifts" FromRole="WishGiftLink" ToRole="Gift" />
-          <NavigationProperty Name="User" Relationship="GiftKnacks_dbModel.FK_WishGiftLinks_Users" FromRole="WishGiftLink" ToRole="User" />
-          <NavigationProperty Name="Wish" Relationship="GiftKnacks_dbModel.FK_WishGiftLinks_Wishes" FromRole="WishGiftLink" ToRole="Wish" />
+          <NavigationProperty Name="Gift" Relationship="Self.FK_WishGiftLinks_Gifts" FromRole="WishGiftLinks" ToRole="Gifts" />
+          <NavigationProperty Name="User" Relationship="Self.FK_WishGiftLinks_Users" FromRole="WishGiftLinks" ToRole="Users" />
+          <NavigationProperty Name="Wish" Relationship="Self.FK_WishGiftLinks_Wishes" FromRole="WishGiftLinks" ToRole="Wishes" />
         </EntityType>
         <EntityType Name="WishLinkComment">
           <Key>
@@ -882,475 +775,589 @@
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CommentId" Type="Int64" Nullable="false" />
           <Property Name="WishId" Type="Int64" Nullable="false" />
-          <NavigationProperty Name="Comment" Relationship="GiftKnacks_dbModel.FK_CommentLink" FromRole="WishLinkComment" ToRole="Comment" />
-          <NavigationProperty Name="Wish" Relationship="GiftKnacks_dbModel.FK_WishLink" FromRole="WishLinkComment" ToRole="Wish" />
+          <NavigationProperty Name="Comment" Relationship="Self.FK_CommentLink" FromRole="WishLinkComments" ToRole="Comments" />
+          <NavigationProperty Name="Wish" Relationship="Self.FK_WishLink" FromRole="WishLinkComments" ToRole="Wishes" />
         </EntityType>
         <Association Name="FK_CommentLink">
-          <End Type="GiftKnacks_dbModel.Comment" Role="Comment" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.WishLinkComment" Role="WishLinkComment" Multiplicity="*" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="1" />
+          <End Role="WishLinkComments" Type="Self.WishLinkComment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Comment">
+            <Principal Role="Comments">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="WishLinkComment">
+            <Dependent Role="WishLinkComments">
               <PropertyRef Name="CommentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_CommentLinkG">
-          <End Type="GiftKnacks_dbModel.Comment" Role="Comment" Multiplicity="1">
+          <End Role="Comments" Type="Self.Comment" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="GiftKnacks_dbModel.GiftLinkComment" Role="GiftLinkComment" Multiplicity="*" />
+          <End Role="GiftLinkComments" Type="Self.GiftLinkComment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Comment">
+            <Principal Role="Comments">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="GiftLinkComment">
+            <Dependent Role="GiftLinkComments">
               <PropertyRef Name="CommentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comments_Comments_Parent">
-          <End Type="GiftKnacks_dbModel.Comment" Role="Comment" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.Comment" Role="Comment1" Multiplicity="*" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="0..1" />
+          <End Role="Comments1" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Comment">
+            <Principal Role="Comments">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Comment1">
+            <Dependent Role="Comments1">
               <PropertyRef Name="ParentCommentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Comments_ToUsers">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="1">
+          <End Role="Users" Type="Self.User" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="GiftKnacks_dbModel.Comment" Role="Comment" Multiplicity="*" />
+          <End Role="Comments" Type="Self.Comment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Comment">
+            <Dependent Role="Comments">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ContactsTypes_ToContacts">
-          <End Type="GiftKnacks_dbModel.ContactType" Role="ContactType" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Contact" Role="Contact" Multiplicity="*" />
+          <End Role="ContactTypes" Type="Self.ContactType" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ContactType">
+            <Principal Role="ContactTypes">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Contact">
+            <Dependent Role="Contacts">
               <PropertyRef Name="ContactTypeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Users_ToContacts">
-          <End Type="GiftKnacks_dbModel.Profile" Role="Profile" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Contact" Role="Contact" Multiplicity="*" />
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="1" />
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Profile">
+            <Principal Role="Profiles">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Contact">
+            <Dependent Role="Contacts">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gifts_Countries">
-          <End Type="GiftKnacks_dbModel.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.Gift" Role="Gift" Multiplicity="*" />
+          <End Role="Countries" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Gifts" Type="Self.Gift" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Country">
+            <Principal Role="Countries">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Gift">
+            <Dependent Role="Gifts">
               <PropertyRef Name="Country" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Profiles_Countries">
-          <End Type="GiftKnacks_dbModel.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.Profile" Role="Profile" Multiplicity="*" />
+          <End Role="Countries" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Country">
+            <Principal Role="Countries">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Profile">
+            <Dependent Role="Profiles">
               <PropertyRef Name="Country" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wishes_Countries">
-          <End Type="GiftKnacks_dbModel.Country" Role="Country" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.Wish" Role="Wish" Multiplicity="*" />
+          <End Role="Countries" Type="Self.Country" Multiplicity="0..1" />
+          <End Role="Wishes" Type="Self.Wish" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Country">
+            <Principal Role="Countries">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Wish">
+            <Dependent Role="Wishes">
               <PropertyRef Name="Country" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_GiftLink">
-          <End Type="GiftKnacks_dbModel.Gift" Role="Gift" Multiplicity="1">
+          <End Role="Gifts" Type="Self.Gift" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Type="GiftKnacks_dbModel.GiftLinkComment" Role="GiftLinkComment" Multiplicity="*" />
+          <End Role="GiftLinkComments" Type="Self.GiftLinkComment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gift">
+            <Principal Role="Gifts">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="GiftLinkComment">
+            <Dependent Role="GiftLinkComments">
               <PropertyRef Name="GiftId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gifts_GiftWishStatuses">
-          <End Type="GiftKnacks_dbModel.GiftWishStatus" Role="GiftWishStatus" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Gift" Role="Gift" Multiplicity="*" />
+          <End Role="GiftWishStatuses" Type="Self.GiftWishStatus" Multiplicity="1" />
+          <End Role="Gifts" Type="Self.Gift" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GiftWishStatus">
+            <Principal Role="GiftWishStatuses">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Gift">
+            <Dependent Role="Gifts">
               <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gifts_Users">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Gift" Role="Gift" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Gifts" Type="Self.Gift" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Gift">
+            <Dependent Role="Gifts">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WishGiftLinks_Gifts">
-          <End Type="GiftKnacks_dbModel.Gift" Role="Gift" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.WishGiftLink" Role="WishGiftLink" Multiplicity="*" />
+          <End Role="Gifts" Type="Self.Gift" Multiplicity="1" />
+          <End Role="WishGiftLinks" Type="Self.WishGiftLink" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gift">
+            <Principal Role="Gifts">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="WishGiftLink">
+            <Dependent Role="WishGiftLinks">
               <PropertyRef Name="GiftId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wishes_GiftWishStatuses">
-          <End Type="GiftKnacks_dbModel.GiftWishStatus" Role="GiftWishStatus" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Wish" Role="Wish" Multiplicity="*" />
+          <End Role="GiftWishStatuses" Type="Self.GiftWishStatus" Multiplicity="1" />
+          <End Role="Wishes" Type="Self.Wish" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="GiftWishStatus">
+            <Principal Role="GiftWishStatuses">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Wish">
+            <Dependent Role="Wishes">
               <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Profiles_USERS">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Profile" Role="Profile" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Profiles" Type="Self.Profile" Multiplicity="0..1" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Profile">
+            <Dependent Role="Profiles">
               <PropertyRef Name="Id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_References_OwnerUserId">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.Reference" Role="Reference" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="References" Type="Self.Reference" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Reference">
+            <Dependent Role="References">
               <PropertyRef Name="OwnerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_References_ReplyUserId">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.Reference" Role="Reference" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="References" Type="Self.Reference" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Reference">
+            <Dependent Role="References">
               <PropertyRef Name="ReplyerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wishes_Users">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Wish" Role="Wish" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Wishes" Type="Self.Wish" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Wish">
+            <Dependent Role="Wishes">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wishes_Users_Closer">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.Wish" Role="Wish" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Wishes" Type="Self.Wish" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Wish">
+            <Dependent Role="Wishes">
               <PropertyRef Name="WishUserCloserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WishGiftLinks_Users">
-          <End Type="GiftKnacks_dbModel.User" Role="User" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.WishGiftLink" Role="WishGiftLink" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="WishGiftLinks" Type="Self.WishGiftLink" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="WishGiftLink">
+            <Dependent Role="WishGiftLinks">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Parent_WishCategories">
-          <End Type="GiftKnacks_dbModel.WishCategory" Role="WishCategory" Multiplicity="0..1" />
-          <End Type="GiftKnacks_dbModel.WishCategory" Role="WishCategory1" Multiplicity="*" />
+          <End Role="WishCategories" Type="Self.WishCategory" Multiplicity="0..1" />
+          <End Role="WishCategories1" Type="Self.WishCategory" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="WishCategory">
+            <Principal Role="WishCategories">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="WishCategory1">
+            <Dependent Role="WishCategories1">
               <PropertyRef Name="ParentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Wishes_Categories">
-          <End Type="GiftKnacks_dbModel.WishCategory" Role="WishCategory" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.Wish" Role="Wish" Multiplicity="*" />
+          <End Role="WishCategories" Type="Self.WishCategory" Multiplicity="1" />
+          <End Role="Wishes" Type="Self.Wish" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="WishCategory">
+            <Principal Role="WishCategories">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Wish">
+            <Dependent Role="Wishes">
               <PropertyRef Name="CategoryId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WishGiftLinks_Wishes">
-          <End Type="GiftKnacks_dbModel.Wish" Role="Wish" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.WishGiftLink" Role="WishGiftLink" Multiplicity="*" />
+          <End Role="Wishes" Type="Self.Wish" Multiplicity="1" />
+          <End Role="WishGiftLinks" Type="Self.WishGiftLink" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Wish">
+            <Principal Role="Wishes">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="WishGiftLink">
+            <Dependent Role="WishGiftLinks">
               <PropertyRef Name="WishId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_WishLink">
-          <End Type="GiftKnacks_dbModel.Wish" Role="Wish" Multiplicity="1" />
-          <End Type="GiftKnacks_dbModel.WishLinkComment" Role="WishLinkComment" Multiplicity="*" />
+          <End Role="Wishes" Type="Self.Wish" Multiplicity="1" />
+          <End Role="WishLinkComments" Type="Self.WishLinkComment" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Wish">
+            <Principal Role="Wishes">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="WishLinkComment">
+            <Dependent Role="WishLinkComments">
               <PropertyRef Name="WishId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="giftKnacksConnectionString1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Comments" EntityType="Self.Comment" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="ContactTypes" EntityType="Self.ContactType" />
+          <EntitySet Name="Countries" EntityType="Self.Country" />
+          <EntitySet Name="GiftLinkComments" EntityType="Self.GiftLinkComment" />
+          <EntitySet Name="Gifts" EntityType="Self.Gift" />
+          <EntitySet Name="GiftWishStatuses" EntityType="Self.GiftWishStatus" />
+          <EntitySet Name="Profiles" EntityType="Self.Profile" />
+          <EntitySet Name="References" EntityType="Self.Reference" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="WishCategories" EntityType="Self.WishCategory" />
+          <EntitySet Name="Wishes" EntityType="Self.Wish" />
+          <EntitySet Name="WishGiftLinks" EntityType="Self.WishGiftLink" />
+          <EntitySet Name="WishLinkComments" EntityType="Self.WishLinkComment" />
+          <AssociationSet Name="FK_CommentLink" Association="Self.FK_CommentLink">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="WishLinkComments" EntitySet="WishLinkComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CommentLinkG" Association="Self.FK_CommentLinkG">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="GiftLinkComments" EntitySet="GiftLinkComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_Comments_Parent" Association="Self.FK_Comments_Comments_Parent">
+            <End Role="Comments" EntitySet="Comments" />
+            <End Role="Comments1" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_ToUsers" Association="Self.FK_Comments_ToUsers">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactsTypes_ToContacts" Association="Self.FK_ContactsTypes_ToContacts">
+            <End Role="ContactTypes" EntitySet="ContactTypes" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_ToContacts" Association="Self.FK_Users_ToContacts">
+            <End Role="Profiles" EntitySet="Profiles" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gifts_Countries" Association="Self.FK_Gifts_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Gifts" EntitySet="Gifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profiles_Countries" Association="Self.FK_Profiles_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wishes_Countries" Association="Self.FK_Wishes_Countries">
+            <End Role="Countries" EntitySet="Countries" />
+            <End Role="Wishes" EntitySet="Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GiftLink" Association="Self.FK_GiftLink">
+            <End Role="Gifts" EntitySet="Gifts" />
+            <End Role="GiftLinkComments" EntitySet="GiftLinkComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gifts_GiftWishStatuses" Association="Self.FK_Gifts_GiftWishStatuses">
+            <End Role="GiftWishStatuses" EntitySet="GiftWishStatuses" />
+            <End Role="Gifts" EntitySet="Gifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gifts_Users" Association="Self.FK_Gifts_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Gifts" EntitySet="Gifts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishGiftLinks_Gifts" Association="Self.FK_WishGiftLinks_Gifts">
+            <End Role="Gifts" EntitySet="Gifts" />
+            <End Role="WishGiftLinks" EntitySet="WishGiftLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wishes_GiftWishStatuses" Association="Self.FK_Wishes_GiftWishStatuses">
+            <End Role="GiftWishStatuses" EntitySet="GiftWishStatuses" />
+            <End Role="Wishes" EntitySet="Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profiles_USERS" Association="Self.FK_Profiles_USERS">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Profiles" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_References_OwnerUserId" Association="Self.FK_References_OwnerUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="References" EntitySet="References" />
+          </AssociationSet>
+          <AssociationSet Name="FK_References_ReplyUserId" Association="Self.FK_References_ReplyUserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="References" EntitySet="References" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wishes_Users" Association="Self.FK_Wishes_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishes" EntitySet="Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wishes_Users_Closer" Association="Self.FK_Wishes_Users_Closer">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Wishes" EntitySet="Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishGiftLinks_Users" Association="Self.FK_WishGiftLinks_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WishGiftLinks" EntitySet="WishGiftLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Parent_WishCategories" Association="Self.FK_Parent_WishCategories">
+            <End Role="WishCategories" EntitySet="WishCategories" />
+            <End Role="WishCategories1" EntitySet="WishCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wishes_Categories" Association="Self.FK_Wishes_Categories">
+            <End Role="WishCategories" EntitySet="WishCategories" />
+            <End Role="Wishes" EntitySet="Wishes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishGiftLinks_Wishes" Association="Self.FK_WishGiftLinks_Wishes">
+            <End Role="Wishes" EntitySet="Wishes" />
+            <End Role="WishGiftLinks" EntitySet="WishGiftLinks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WishLink" Association="Self.FK_WishLink">
+            <End Role="Wishes" EntitySet="Wishes" />
+            <End Role="WishLinkComments" EntitySet="WishLinkComments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="GiftKnacks_dbModelStoreContainer" CdmEntityContainer="giftKnacksConnectionString">
+        <EntityContainerMapping StorageEntityContainer="testgiftknackdatabaseModelStoreContainer" CdmEntityContainer="giftKnacksConnectionString1">
           <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.Comment">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Comment">
               <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ParentCommentId" ColumnName="ParentCommentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParentCommentId" ColumnName="ParentCommentId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="UpdateTime" ColumnName="UpdateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Contacts">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.Contact">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Contact">
               <MappingFragment StoreEntitySet="Contacts">
-                <ScalarProperty Name="MainContact" ColumnName="MainContact" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="ContactTypeId" ColumnName="ContactTypeId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ContactTypeId" ColumnName="ContactTypeId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="MainContact" ColumnName="MainContact" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ContactTypes">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.ContactType">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.ContactType">
               <MappingFragment StoreEntitySet="ContactTypes">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Countries">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.Country">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Country">
               <MappingFragment StoreEntitySet="Countries">
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GiftLinkComments">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.GiftLinkComment">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.GiftLinkComment">
               <MappingFragment StoreEntitySet="GiftLinkComments">
-                <ScalarProperty Name="GiftId" ColumnName="GiftId" />
-                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="GiftId" ColumnName="GiftId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gifts">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.Gift">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Gift">
               <MappingFragment StoreEntitySet="Gifts">
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="GiftWishStatuses">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.GiftWishStatus">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.GiftWishStatus">
               <MappingFragment StoreEntitySet="GiftWishStatuses">
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Profiles">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.Profile">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Profile">
               <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="AvatarUrl" ColumnName="AvatarUrl" />
+                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
+                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+                <ScalarProperty Name="HideBirthday" ColumnName="HideBirthday" />
+                <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
                 <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
-                <ScalarProperty Name="IsFilled" ColumnName="IsFilled" />
-                <ScalarProperty Name="HideBirthday" ColumnName="HideBirthday" />
-                <ScalarProperty Name="Birthday" ColumnName="Birthday" />
-                <ScalarProperty Name="AboutMe" ColumnName="AboutMe" />
-                <ScalarProperty Name="AvatarUrl" ColumnName="AvatarUrl" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="References">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.Reference">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Reference">
               <MappingFragment StoreEntitySet="References">
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
-                <ScalarProperty Name="ReplyerId" ColumnName="ReplyerId" />
-                <ScalarProperty Name="Rate" ColumnName="Rate" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Rate" ColumnName="Rate" />
+                <ScalarProperty Name="ReplyerId" ColumnName="ReplyerId" />
+                <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Users">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.User">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.User">
               <MappingFragment StoreEntitySet="Users">
-                <ScalarProperty Name="TotalClosed" ColumnName="TotalClosed" />
-                <ScalarProperty Name="AvgRate" ColumnName="AvgRate" />
-                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
-                <ScalarProperty Name="EmailStamp" ColumnName="EmailStamp" />
-                <ScalarProperty Name="ConfirmMail" ColumnName="ConfirmMail" />
-                <ScalarProperty Name="DateRegister" ColumnName="DateRegister" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="DateRegister" ColumnName="DateRegister" />
+                <ScalarProperty Name="ConfirmMail" ColumnName="ConfirmMail" />
+                <ScalarProperty Name="EmailStamp" ColumnName="EmailStamp" />
+                <ScalarProperty Name="LastLoginTime" ColumnName="LastLoginTime" />
+                <ScalarProperty Name="AvgRate" ColumnName="AvgRate" />
+                <ScalarProperty Name="TotalClosed" ColumnName="TotalClosed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WishCategories">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.WishCategory">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.WishCategory">
               <MappingFragment StoreEntitySet="WishCategories">
-                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Wishes">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.Wish">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Wish">
               <MappingFragment StoreEntitySet="Wishes">
-                <ScalarProperty Name="WishUserCloserId" ColumnName="WishUserCloserId" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Emergency" ColumnName="Emergency" />
-                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
-                <ScalarProperty Name="Location" ColumnName="Location" />
-                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
-                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
-                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+                <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+                <ScalarProperty Name="Benefit" ColumnName="Benefit" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Location" ColumnName="Location" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="Emergency" ColumnName="Emergency" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="WishUserCloserId" ColumnName="WishUserCloserId" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WishGiftLinks">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.WishGiftLink">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.WishGiftLink">
               <MappingFragment StoreEntitySet="WishGiftLinks">
-                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
-                <ScalarProperty Name="GiftId" ColumnName="GiftId" />
-                <ScalarProperty Name="WishId" ColumnName="WishId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="WishId" ColumnName="WishId" />
+                <ScalarProperty Name="GiftId" ColumnName="GiftId" />
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="WishLinkComments">
-            <EntityTypeMapping TypeName="GiftKnacks_dbModel.WishLinkComment">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.WishLinkComment">
               <MappingFragment StoreEntitySet="WishLinkComments">
-                <ScalarProperty Name="WishId" ColumnName="WishId" />
-                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CommentId" ColumnName="CommentId" />
+                <ScalarProperty Name="WishId" ColumnName="WishId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

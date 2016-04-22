@@ -14,6 +14,7 @@ namespace GiftKnacksProject.Api.EfDao
     
     public partial class Comment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Comment()
         {
             this.WishLinkComments = new HashSet<WishLinkComment>();
@@ -27,8 +28,11 @@ namespace GiftKnacksProject.Api.EfDao
         public string Text { get; set; }
         public System.DateTime UpdateTime { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishLinkComment> WishLinkComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GiftLinkComment> GiftLinkComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comment> Comments1 { get; set; }
         public virtual Comment Comment1 { get; set; }
         public virtual User User { get; set; }

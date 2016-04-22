@@ -14,6 +14,7 @@ namespace GiftKnacksProject.Api.EfDao
     
     public partial class GiftWishStatus
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public GiftWishStatus()
         {
             this.Gifts = new HashSet<Gift>();
@@ -24,7 +25,9 @@ namespace GiftKnacksProject.Api.EfDao
         public string Status { get; set; }
         public int Code { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gift> Gifts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wish> Wishes { get; set; }
     }
 }

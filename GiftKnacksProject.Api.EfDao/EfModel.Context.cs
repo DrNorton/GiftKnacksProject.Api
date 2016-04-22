@@ -13,10 +13,10 @@ namespace GiftKnacksProject.Api.EfDao
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class giftKnacksConnectionString : DbContext
+    public partial class giftKnacksConnectionString1 : DbContext
     {
-        public giftKnacksConnectionString()
-            : base("name=giftKnacksConnectionString")
+        public giftKnacksConnectionString1()
+            : base("name=giftKnacksConnectionString1")
         {
         }
     

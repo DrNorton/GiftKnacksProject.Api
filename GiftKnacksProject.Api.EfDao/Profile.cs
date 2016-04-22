@@ -14,6 +14,7 @@ namespace GiftKnacksProject.Api.EfDao
     
     public partial class Profile
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profile()
         {
             this.Contacts = new HashSet<Contact>();
@@ -29,9 +30,10 @@ namespace GiftKnacksProject.Api.EfDao
         public Nullable<System.DateTime> Birthday { get; set; }
         public bool HideBirthday { get; set; }
         public bool IsFilled { get; set; }
-        public bool Gender { get; set; }
         public Nullable<System.DateTime> LastLoginTime { get; set; }
+        public bool Gender { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual Country Country1 { get; set; }
         public virtual User User { get; set; }
