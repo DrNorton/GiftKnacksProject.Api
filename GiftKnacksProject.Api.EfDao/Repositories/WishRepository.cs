@@ -261,7 +261,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
             IQueryable<Wish> query = Db.Set<Wish>().AsQueryable();
             if (country != null && country.Name != null && city != null)
             {
-                 query=query.Where(x=>x.Country1.Name==country.Name || x.City==city);
+                 query=query.OrderByDescending(x=>x.CreatedTime).Where(x=>x.Country1.Name==country.Name || x.City==city);
             }
 
 

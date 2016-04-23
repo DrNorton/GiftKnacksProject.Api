@@ -32,6 +32,7 @@ namespace GiftKnacksProject.Api.EfDao
         public bool IsFilled { get; set; }
         public Nullable<System.DateTime> LastLoginTime { get; set; }
         public bool Gender { get; set; }
+        public System.DateTime CreatedTime { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Contact> Contacts { get; set; }

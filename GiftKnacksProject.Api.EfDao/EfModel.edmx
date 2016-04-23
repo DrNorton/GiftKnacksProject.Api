@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="testgiftknackdatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="testgiftknackdatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Comments">
           <Key>
             <PropertyRef Name="Id" />
@@ -88,6 +88,7 @@
           <Property Name="IsFilled" Type="bit" Nullable="false" />
           <Property Name="LastLoginTime" Type="datetime" />
           <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="References">
           <Key>
@@ -568,8 +569,7 @@
             <End Role="WishLinkComments" EntitySet="WishLinkComments" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="testgiftknackdatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -679,6 +679,7 @@
           <NavigationProperty Name="Contacts" Relationship="Self.FK_Users_ToContacts" FromRole="Profiles" ToRole="Contacts" />
           <NavigationProperty Name="Country1" Relationship="Self.FK_Profiles_Countries" FromRole="Profiles" ToRole="Countries" />
           <NavigationProperty Name="User" Relationship="Self.FK_Profiles_USERS" FromRole="Profiles" ToRole="Users" />
+          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Reference">
           <Key>
@@ -1267,6 +1268,7 @@
           <EntitySetMapping Name="Profiles">
             <EntityTypeMapping TypeName="testgiftknackdatabaseModel.Profile">
               <MappingFragment StoreEntitySet="Profiles">
+                <ScalarProperty Name="CreatedTime" ColumnName="CreatedTime" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />

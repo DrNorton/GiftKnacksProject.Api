@@ -241,7 +241,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 query = query.Where(x => x.Country1.Name == country.Name || x.City == city);
             }
 
-            return query.Select(x => new NearWishGiftDto() { Id = x.Id, Name = x.Name });
+            return query.OrderByDescending(x => x.CreatedTime).Select(x => new NearWishGiftDto() { Id = x.Id, Name = x.Name });
         }
     }
 }
