@@ -15,7 +15,6 @@ namespace GiftKnacksProject.Api.Dao.AuthUsers
         public CustomUserManager(IUserStore<ApplicationUser, long> store,IPasswordHasher hasher,IIdentityMessageService emailService,DataProtectorTokenProvider<ApplicationUser, long> dataProtectorProvider)
             : base(store)
         {
-            var provider = new DpapiDataProtectionProvider("Sample");
             this.PasswordHasher = hasher;
             this.EmailService = emailService;
             this.UserTokenProvider = dataProtectorProvider;

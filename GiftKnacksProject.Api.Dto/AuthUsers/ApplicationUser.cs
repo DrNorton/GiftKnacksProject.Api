@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GiftKnacksProject.Api.Dto.AuthUsers
 {
-    public class ApplicationUser:IUser<long>
+    public class ApplicationUser: IUser<long>
     {
         public long Id { get; set; }
         public string UserName { get; set; }

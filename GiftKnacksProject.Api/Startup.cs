@@ -15,6 +15,7 @@ using GiftKnacksProject.Api.App_Start;
 using GiftKnacksProject.Api.Dependencies;
 using Microsoft.AspNet.SignalR;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Swashbuckle.Application;
@@ -46,24 +47,18 @@ namespace GiftKnacksProject.Api
         {
             HookConnectionStrings();
             var config = new HttpConfiguration();
-
-         
-
             var container = ConfigureWindsor(GlobalConfiguration.Configuration);
-            ConfigureOAuth(app, container);
             GlobalConfiguration.Configure(
                 c =>
                 {
+                    AuthConfig.Register(app, container);
                     WebApiConfig.Register(c, container);
                     SwaggerConfig.Register(c);
                 }
                 );
 
-         
-
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
-
             app.Map("/signalr", map =>
             {
                 map.UseCors(SignalrCorsOptions.Value);
@@ -80,21 +75,10 @@ namespace GiftKnacksProject.Api
                 };
                 map.RunSignalR(hubConfiguration);
             });
-
            
         }
 
-   
-
-
-
-        public void ConfigureOAuth(IAppBuilder app, IWindsorContainer container)
-        {
-            //// Token Generation
-            app.UseOAuthAuthorizationServer(container.Resolve<OAuthAuthorizationServerOptions>());
-            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-           
-        }
+        
 
         private void HookConnectionStrings()
         {
@@ -124,7 +108,6 @@ namespace GiftKnacksProject.Api
         }    
     }
 
-
   
     public class QueryStringOAuthBearerProvider : OAuthBearerAuthenticationProvider
     {
@@ -140,7 +123,5 @@ namespace GiftKnacksProject.Api
             return Task.FromResult<object>(null);
         }
     }
-
-
 
 }
