@@ -132,6 +132,7 @@
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\IGiftRepository.cs" />
     <Compile Include="Repositories\ILinkRepository.cs" />
+    <Compile Include="Repositories\IOAuthClientsRepository.cs" />
     <Compile Include="Repositories\IProfileRepository.cs" />
     <Compile Include="Repositories\IReferenceRepository.cs" />
     <Compile Include="Repositories\IWishRepository.cs" />

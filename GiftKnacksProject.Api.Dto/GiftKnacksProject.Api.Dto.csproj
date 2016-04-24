@@ -88,6 +88,7 @@
     <Compile Include="Dtos\Interesting\InterestingNearDto.cs" />
     <Compile Include="Dtos\Interesting\NearWishGiftDto.cs" />
     <Compile Include="Dtos\Interesting\UserNearDto.cs" />
+    <Compile Include="Dtos\OauthClients\OauthClientDto.cs" />
     <Compile Include="Dtos\PagingDto.cs" />
     <Compile Include="Dtos\Profile\ProfileDto.cs" />
     <Compile Include="Dtos\Profile\ShortProfileDto.cs" />

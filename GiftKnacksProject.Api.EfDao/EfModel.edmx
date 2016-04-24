@@ -72,6 +72,18 @@
           <Property Name="Status" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="Code" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="OAuthClients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Secret" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ApplicationType" Type="int" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
+          <Property Name="RefreshTokenLifeTime" Type="int" Nullable="false" />
+          <Property Name="AllowedOrigin" Type="nvarchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Profiles">
           <Key>
             <PropertyRef Name="Id" />
@@ -465,6 +477,7 @@
           <EntitySet Name="GiftLinkComments" EntityType="Self.GiftLinkComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gifts" EntityType="Self.Gifts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiftWishStatuses" EntityType="Self.GiftWishStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OAuthClients" EntityType="Self.OAuthClients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Profiles" EntityType="Self.Profiles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="References" EntityType="Self.References" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -1184,7 +1197,20 @@
             <End Role="Wishes" EntitySet="Wishes" />
             <End Role="WishLinkComments" EntitySet="WishLinkComments" />
           </AssociationSet>
+          <EntitySet Name="OAuthClients" EntityType="testgiftknackdatabaseModel.OAuthClient" />
         </EntityContainer>
+        <EntityType Name="OAuthClient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Secret" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ApplicationType" Type="Int32" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <Property Name="RefreshTokenLifeTime" Type="Int32" Nullable="false" />
+          <Property Name="AllowedOrigin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1360,6 +1386,19 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="CommentId" ColumnName="CommentId" />
                 <ScalarProperty Name="WishId" ColumnName="WishId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OAuthClients">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.OAuthClient">
+              <MappingFragment StoreEntitySet="OAuthClients">
+                <ScalarProperty Name="AllowedOrigin" ColumnName="AllowedOrigin" />
+                <ScalarProperty Name="RefreshTokenLifeTime" ColumnName="RefreshTokenLifeTime" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="ApplicationType" ColumnName="ApplicationType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Secret" ColumnName="Secret" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
