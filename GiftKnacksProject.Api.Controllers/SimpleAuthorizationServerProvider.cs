@@ -15,21 +15,14 @@ namespace GiftKnacksProject.Api.Controllers
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
         private readonly IWindsorContainer _container;
-       
-      
-
-
         public SimpleAuthorizationServerProvider(IWindsorContainer container)
         {
             _container = container;
         }
-
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
         }
-
-
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
             var isFilledClaim = context.Identity.Claims.FirstOrDefault(x => x.Type == "profileFiled");
@@ -39,7 +32,6 @@ namespace GiftKnacksProject.Api.Controllers
                 var isFilled = isFilledClaim.Value;
                 context.AdditionalResponseParameters.Add("isFilled",bool.Parse(isFilled));
                 context.AdditionalResponseParameters.Add("userId", long.Parse(id.Value));
-                
             }
             return base.TokenEndpoint(context);
         }

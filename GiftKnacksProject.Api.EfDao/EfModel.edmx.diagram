@@ -44,6 +44,8 @@
         <AssociationConnector Association="testgiftknackdatabaseModel.FK_WishGiftLinks_Wishes" ManuallyRouted="false" />
         <AssociationConnector Association="testgiftknackdatabaseModel.FK_WishLink" ManuallyRouted="false" />
         <EntityTypeShape EntityType="testgiftknackdatabaseModel.OAuthClient" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="testgiftknackdatabaseModel.ExternalLogin" Width="1.5" PointX="3" PointY="8.125" />
+        <AssociationConnector Association="testgiftknackdatabaseModel.FK_ExternalLogins_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -59,10 +59,6 @@ namespace GiftKnacksProject.Api.Dependencies.Installers
                         Provider = new SimpleAuthorizationServerProvider(container)
                     })
                     .LifestyleTransient());
-
-
-            
-           
         }
     }
 

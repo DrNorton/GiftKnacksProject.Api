@@ -7,5 +7,6 @@ namespace GiftKnacksProject.Api.Dao.Repositories
     public interface IOAuthClientsRepository
     {
         Task<List<OAuthClientDto>> GetClients();
+        OAuthClientDto FindClient(string clientId);
     }
 }

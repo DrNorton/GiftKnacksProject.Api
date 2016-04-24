@@ -15,6 +15,8 @@ namespace GiftKnacksProject.Api.Controllers.Models
         public string UserName { get; set; }
         public string ExternalAccessToken { get; set; }
 
+        public string Email { get; set; }
+
         public static ExternalLoginData FromIdentity(ClaimsIdentity identity)
         {
             if (identity == null)
@@ -40,6 +42,7 @@ namespace GiftKnacksProject.Api.Controllers.Models
                 ProviderKey = providerKeyClaim.Value,
                 UserName = identity.FindFirstValue(ClaimTypes.Name),
                 ExternalAccessToken = identity.FindFirstValue("ExternalAccessToken"),
+                Email = identity.FindFirstValue(ClaimTypes.Email)
             };
         }
     }

@@ -40,5 +40,6 @@ namespace GiftKnacksProject.Api.EfDao
         public virtual DbSet<WishGiftLink> WishGiftLinks { get; set; }
         public virtual DbSet<WishLinkComment> WishLinkComments { get; set; }
         public virtual DbSet<OAuthClient> OAuthClients { get; set; }
+        public virtual DbSet<ExternalLogin> ExternalLogins { get; set; }
     }
 }

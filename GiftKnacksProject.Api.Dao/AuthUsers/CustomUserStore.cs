@@ -11,14 +11,15 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace GiftKnacksProject.Api.Dao.AuthUsers
 {
-    public class CustomUserStore : IUserStore<ApplicationUser,long>,IUserPasswordStore<ApplicationUser,long>,IUserEmailStore<ApplicationUser,long>,IUserSecurityStampStore<ApplicationUser,long>
+    public class CustomUserStore : IUserStore<ApplicationUser,long>,IUserPasswordStore<ApplicationUser,long>,IUserEmailStore<ApplicationUser,long>,IUserSecurityStampStore<ApplicationUser,long>,IUserLoginStore<ApplicationUser,long>
     {
         private readonly IAuthRepository _repository;
+        private readonly IExternalLoginRepository _externalLoginRepository;
 
-        public CustomUserStore(IAuthRepository repository)
+        public CustomUserStore(IAuthRepository repository,IExternalLoginRepository externalLoginRepository)
         {
             _repository = repository;
-        
+            _externalLoginRepository = externalLoginRepository;
         }
 
         public Task CreateAsync(ApplicationUser user)
@@ -110,6 +111,27 @@ namespace GiftKnacksProject.Api.Dao.AuthUsers
         public Task SetSecurityStampAsync(ApplicationUser user, string stamp)
         {
             return Task.FromResult(user.EmailStamp=stamp);
+        }
+
+        public Task AddLoginAsync(ApplicationUser user, UserLoginInfo login)
+        {
+            return _externalLoginRepository.AddLogin(user,login);
+        }
+
+        public Task RemoveLoginAsync(ApplicationUser user, UserLoginInfo login)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IList<UserLoginInfo>> GetLoginsAsync(ApplicationUser user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ApplicationUser> FindAsync(UserLoginInfo login)
+        {
+            var externalUser=await _externalLoginRepository.FindAsync(login.LoginProvider,login.ProviderKey);
+            return externalUser?.User;
         }
     }
 }

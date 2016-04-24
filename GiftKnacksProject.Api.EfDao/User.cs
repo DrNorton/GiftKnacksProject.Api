@@ -24,6 +24,7 @@ namespace GiftKnacksProject.Api.EfDao
             this.Wishes = new HashSet<Wish>();
             this.Wishes1 = new HashSet<Wish>();
             this.WishGiftLinks = new HashSet<WishGiftLink>();
+            this.ExternalLogins = new HashSet<ExternalLogin>();
         }
     
         public long Id { get; set; }
@@ -51,5 +52,7 @@ namespace GiftKnacksProject.Api.EfDao
         public virtual ICollection<Wish> Wishes1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<WishGiftLink> WishGiftLinks { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ExternalLogin> ExternalLogins { get; set; }
     }
 }

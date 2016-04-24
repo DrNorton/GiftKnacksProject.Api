@@ -39,6 +39,15 @@
           <Property Name="Id" Type="nvarchar" MaxLength="2" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
         </EntityType>
+        <EntityType Name="ExternalLogin">
+          <Key>
+            <PropertyRef Name="ExternalLoginId" />
+          </Key>
+          <Property Name="ExternalLoginId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="bigint" Nullable="false" />
+          <Property Name="LoginProvider" Type="varchar(max)" Nullable="false" />
+          <Property Name="ProviderKey" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="GiftLinkComments">
           <Key>
             <PropertyRef Name="Id" />
@@ -100,7 +109,7 @@
           <Property Name="IsFilled" Type="bit" Nullable="false" />
           <Property Name="LastLoginTime" Type="datetime" />
           <Property Name="Gender" Type="bit" Nullable="false" />
-          <Property Name="CreatedTime" Type="datetime" Nullable="false" />
+          <Property Name="CreatedTime" Type="datetime" />
         </EntityType>
         <EntityType Name="References">
           <Key>
@@ -119,7 +128,7 @@
           </Key>
           <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Password" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="300" />
           <Property Name="DateRegister" Type="datetime" Nullable="false" />
           <Property Name="ConfirmMail" Type="bit" Nullable="false" />
           <Property Name="EmailStamp" Type="nvarchar" MaxLength="200" />
@@ -236,6 +245,18 @@
             </Principal>
             <Dependent Role="Contacts">
               <PropertyRef Name="ContactTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ExternalLogins_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ExternalLogin" Type="Self.ExternalLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalLogin">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -474,6 +495,7 @@
           <EntitySet Name="Contacts" EntityType="Self.Contacts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ContactTypes" EntityType="Self.ContactTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Countries" EntityType="Self.Countries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExternalLogin" EntityType="Self.ExternalLogin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiftLinkComments" EntityType="Self.GiftLinkComments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gifts" EntityType="Self.Gifts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GiftWishStatuses" EntityType="Self.GiftWishStatuses" Schema="dbo" store:Type="Tables" />
@@ -504,6 +526,10 @@
           <AssociationSet Name="FK_ContactsTypes_ToContacts" Association="Self.FK_ContactsTypes_ToContacts">
             <End Role="ContactTypes" EntitySet="ContactTypes" />
             <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ExternalLogins_Users" Association="Self.FK_ExternalLogins_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ExternalLogin" EntitySet="ExternalLogin" />
           </AssociationSet>
           <AssociationSet Name="FK_GiftLink" Association="Self.FK_GiftLink">
             <End Role="Gifts" EntitySet="Gifts" />
@@ -692,7 +718,7 @@
           <NavigationProperty Name="Contacts" Relationship="Self.FK_Users_ToContacts" FromRole="Profiles" ToRole="Contacts" />
           <NavigationProperty Name="Country1" Relationship="Self.FK_Profiles_Countries" FromRole="Profiles" ToRole="Countries" />
           <NavigationProperty Name="User" Relationship="Self.FK_Profiles_USERS" FromRole="Profiles" ToRole="Users" />
-          <Property Name="CreatedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedTime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Reference">
           <Key>
@@ -713,7 +739,7 @@
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="DateRegister" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ConfirmMail" Type="Boolean" Nullable="false" />
           <Property Name="EmailStamp" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
@@ -728,6 +754,7 @@
           <NavigationProperty Name="Wishes" Relationship="Self.FK_Wishes_Users" FromRole="Users" ToRole="Wishes" />
           <NavigationProperty Name="Wishes1" Relationship="Self.FK_Wishes_Users_Closer" FromRole="Users" ToRole="Wishes" />
           <NavigationProperty Name="WishGiftLinks" Relationship="Self.FK_WishGiftLinks_Users" FromRole="Users" ToRole="WishGiftLinks" />
+          <NavigationProperty Name="ExternalLogins" Relationship="testgiftknackdatabaseModel.FK_ExternalLogins_Users" FromRole="User" ToRole="ExternalLogin" />
         </EntityType>
         <EntityType Name="WishCategory">
           <Key>
@@ -1198,6 +1225,11 @@
             <End Role="WishLinkComments" EntitySet="WishLinkComments" />
           </AssociationSet>
           <EntitySet Name="OAuthClients" EntityType="testgiftknackdatabaseModel.OAuthClient" />
+          <EntitySet Name="ExternalLogins" EntityType="testgiftknackdatabaseModel.ExternalLogin" />
+          <AssociationSet Name="FK_ExternalLogins_Users" Association="testgiftknackdatabaseModel.FK_ExternalLogins_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="ExternalLogin" EntitySet="ExternalLogins" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="OAuthClient">
           <Key>
@@ -1211,6 +1243,28 @@
           <Property Name="RefreshTokenLifeTime" Type="Int32" Nullable="false" />
           <Property Name="AllowedOrigin" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="ExternalLogin">
+          <Key>
+            <PropertyRef Name="ExternalLoginId" />
+          </Key>
+          <Property Name="ExternalLoginId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Int64" Nullable="false" />
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="testgiftknackdatabaseModel.FK_ExternalLogins_Users" FromRole="ExternalLogin" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_ExternalLogins_Users">
+          <End Type="testgiftknackdatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="testgiftknackdatabaseModel.ExternalLogin" Role="ExternalLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExternalLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1399,6 +1453,16 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Secret" ColumnName="Secret" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExternalLogins">
+            <EntityTypeMapping TypeName="testgiftknackdatabaseModel.ExternalLogin">
+              <MappingFragment StoreEntitySet="ExternalLogin">
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ExternalLoginId" ColumnName="ExternalLoginId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

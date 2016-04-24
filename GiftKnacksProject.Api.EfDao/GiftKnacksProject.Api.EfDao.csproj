@@ -89,6 +89,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>EfModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="ExternalLogin.cs">
+      <DependentUpon>EfModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gift.cs">
       <DependentUpon>EfModel.tt</DependentUpon>
     </Compile>
@@ -111,6 +114,7 @@
     <Compile Include="Repositories\CountryRepository.cs" />
     <Compile Include="Repositories\EfAuthRepository.cs" />
     <Compile Include="Base\GenericRepository.cs" />
+    <Compile Include="Repositories\ExternalLoginRepository.cs" />
     <Compile Include="Repositories\GiftRepository.cs" />
     <Compile Include="Repositories\LinkRepository.cs" />
     <Compile Include="Repositories\OAuthClientsRepository.cs" />

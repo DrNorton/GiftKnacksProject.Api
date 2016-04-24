@@ -129,6 +129,7 @@
     <Compile Include="Repositories\IAuthRepository.cs" />
     <Compile Include="Repositories\ICommentRepository.cs" />
     <Compile Include="Repositories\ICountryRepository.cs" />
+    <Compile Include="Repositories\IExternalLoginRepository.cs" />
     <Compile Include="Repositories\IGenericRepository.cs" />
     <Compile Include="Repositories\IGiftRepository.cs" />
     <Compile Include="Repositories\ILinkRepository.cs" />

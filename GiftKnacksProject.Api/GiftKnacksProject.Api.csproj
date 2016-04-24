@@ -384,6 +384,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Providers\GoogleAuthProvider.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="WindsorCompositionRoot.cs" />
   </ItemGroup>
@@ -391,6 +392,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GiftKnacksProject.Api.Controllers\GiftKnacksProject.Api.Controllers.csproj">
+      <Project>{dfae09ae-a782-441c-9861-a29192d19de3}</Project>
+      <Name>GiftKnacksProject.Api.Controllers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GiftKnacksProject.Api.Dependencies\GiftKnacksProject.Api.Dependencies.csproj">
       <Project>{d08aa878-ea84-423a-bb89-1c67ddadc275}</Project>
       <Name>GiftKnacksProject.Api.Dependencies</Name>
