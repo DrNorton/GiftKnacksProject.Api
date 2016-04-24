@@ -444,8 +444,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
 
         private string ValidateClientAndRedirectUri(HttpRequestMessage request, ref string redirectUriOutput)
         {
-
-            
+          
 
             return string.Empty;
 

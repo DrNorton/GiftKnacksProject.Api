@@ -17,13 +17,7 @@ namespace GiftKnacksProject.Api.App_Start
             //// Token Generation
             app.UseOAuthAuthorizationServer(container.Resolve<OAuthAuthorizationServerOptions>());
             app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
-            var googleOAuth2AuthenticationOptions = new GoogleOAuth2AuthenticationOptions
-            {
-                ClientId = "433960127018",
-                ClientSecret = "wP7ndflpAZsMu6tICexfH26G",
-                Provider = new GoogleOAuth2AuthenticationProvider()
-            };
-            app.UseGoogleAuthentication(googleOAuth2AuthenticationOptions);
+        
         }
     }
 }
