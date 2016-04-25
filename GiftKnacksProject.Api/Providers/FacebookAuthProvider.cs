@@ -6,6 +6,11 @@ namespace GiftKnacksProject.Api.Providers
 {
     public class FacebookAuthProvider : FacebookAuthenticationProvider
     {
+        public override void ApplyRedirect(FacebookApplyRedirectContext context)
+        {
+            base.ApplyRedirect(context);
+        }
+
         public override Task Authenticated(FacebookAuthenticatedContext context)
         {
             context.Identity.AddClaim(new Claim("ExternalAccessToken", context.AccessToken));

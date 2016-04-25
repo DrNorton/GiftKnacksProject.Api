@@ -21,7 +21,7 @@ namespace GiftKnacksProject.Api.Controllers.Models
 
          [Required]
          public string ExternalAccessToken { get; set; }
-        [Required]
+       
         public string Email { get; set; }
 
     }

@@ -6,6 +6,7 @@ using System.Web.Http;
 using Castle.Windsor;
 using GiftKnacksProject.Api.Controllers;
 using GiftKnacksProject.Api.Providers;
+using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
 using Owin;
@@ -31,6 +32,15 @@ namespace GiftKnacksProject.Api.App_Start
             };
             AuthSettings.googleAuthOptions = googleOAuth2AuthenticationOptions;
             app.UseGoogleAuthentication(googleOAuth2AuthenticationOptions);
+            var facebook = new FacebookAuthenticationOptions()
+            {
+                AppId = "235373570153403",
+                AppSecret = "a170501d7451e542472856df08ce3750",
+                Scope = { "email", "public_profile" },
+                Provider = new FacebookAuthProvider()
+            };
+            AuthSettings.facebookAuthOptions = facebook;
+            app.UseFacebookAuthentication(facebook);
         }
     }
 }

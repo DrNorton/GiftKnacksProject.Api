@@ -275,7 +275,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             {
                 //You can get it from here: https://developers.facebook.com/tools/accesstoken/
                 //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-                var appToken = "xxxxxx";
+                var appToken = "235373570153403|jmPA2VY-SkNKl9n2q5SOM_M_I70";
                 verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
             }
             else if (provider == "Google")
@@ -378,7 +378,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
                 return BadRequest(redirectUriValidationResult);
             }
 
-            ExternalLoginData externalLogin = ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity);
+            ExternalLoginData externalLogin = await ExternalLoginData.FromIdentity(User.Identity as ClaimsIdentity,provider);
 
             if (externalLogin == null)
             {
@@ -389,6 +389,11 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
                 return new ChallengeResult(provider, this);
+            }
+
+            if (provider == "Facebook")
+            {
+                
             }
 
             var user = await _userManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider, externalLogin.ProviderKey));
@@ -406,6 +411,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             return Redirect(redirectUri);
 
         }
+       
 
         [System.Web.Http.AllowAnonymous]
         [System.Web.Http.HttpGet]
