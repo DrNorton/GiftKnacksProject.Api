@@ -129,7 +129,16 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             var result = await _userManager.CreateAsync(user);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result);
+                var findedUser=await _userManager.FindByNameAsync(model.Email);
+                if (findedUser == null)
+                {
+                    return GetErrorResult(result);
+                }
+                else
+                {
+                    user.Id = findedUser.Id;
+                }
+                
             }
 
             var info = new ExternalLoginInfo()
