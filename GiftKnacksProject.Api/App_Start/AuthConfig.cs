@@ -6,6 +6,7 @@ using System.Web.Http;
 using Castle.Windsor;
 using GiftKnacksProject.Api.Controllers;
 using GiftKnacksProject.Api.Providers;
+using KatanaContrib.Security.VK;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
@@ -41,6 +42,17 @@ namespace GiftKnacksProject.Api.App_Start
             };
             AuthSettings.facebookAuthOptions = facebook;
             app.UseFacebookAuthentication(facebook);
+            AuthSettings.vkAuthOptions = new VkAuthenticationOptions
+            {
+                // You should add "email" as a parameter for scope
+                // if you are willing to receive user email
+                Scope = new List<string>() {"email"},
+                ClientId = "5438369",
+                ClientSecret = "Io9YrkcNb1rELnUe5CR1",
+                Provider = new VkontakteAuthProvider()
+            };
+            app.UseVkontakteAuthentication(AuthSettings.vkAuthOptions);
+
         }
     }
 }

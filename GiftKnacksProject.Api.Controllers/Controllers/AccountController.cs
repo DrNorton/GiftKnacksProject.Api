@@ -291,6 +291,11 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             {
                 verifyTokenEndPoint = string.Format("https://www.googleapis.com/oauth2/v1/tokeninfo?access_token={0}", accessToken);
             }
+            else if (provider == "Vkontakte")
+            {
+                //https://api.vk.com/method/users.get?access_token=0901de4644e71280b2a2b876224da84cb6bdcd49abe035634d83fb039ec7c71eb6d7e3c8a346248b5b813
+                verifyTokenEndPoint = string.Format("https://api.vk.com/method/users.get?access_token={0}", accessToken);
+            }
             else
             {
                 return null;
@@ -327,6 +332,13 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
                     {
                         return null;
                     }
+
+                }
+                else if (provider == "Vkontakte")
+                {
+                    var test = jObj["response"] as JArray;
+                    var item=test.First() as JObject;
+                    parsedToken.user_id = item["uid"].Value<string>();
 
                 }
 
