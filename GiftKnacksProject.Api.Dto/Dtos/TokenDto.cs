@@ -14,7 +14,7 @@ namespace GiftKnacksProject.Api.Dto.Dtos
         [JsonProperty("token_type")]
         public string TokenType { get; set; }
         [JsonProperty("expires_in")]
-        public long ExpiredIn { get; set; }
+        public double ExpiredIn { get; set; }
         [JsonProperty("isFilled")]
         public bool IsFilled { get; set; }
         [JsonProperty("userId")]

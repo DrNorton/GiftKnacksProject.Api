@@ -159,7 +159,7 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             return Ok(accessTokenResponse);
         }
 
-        private JObject GenerateLocalAccessTokenResponse(string email,long id,bool isFilled)
+        private TokenDto GenerateLocalAccessTokenResponse(string email,long id,bool isFilled)
         {
 
             var tokenExpiration = TimeSpan.FromDays(1);
@@ -181,18 +181,18 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
 
             var accessToken = AuthSettings.OAuthBearerOptions.AccessTokenFormat.Protect(ticket);
 
-            JObject tokenResponse = new JObject(
-                new JProperty("userName", email),
-                new JProperty("access_token", accessToken),
-                new JProperty("token_type", "bearer"),
-                new JProperty("expires_in", tokenExpiration.TotalSeconds.ToString()),
-                new JProperty(".issued", ticket.Properties.IssuedUtc.ToString()),
-                new JProperty(".expires", ticket.Properties.ExpiresUtc.ToString()),
-                    new JProperty("isFilled", isFilled.ToString()),
-                        new JProperty("userId", id.ToString()));
+            var result = new TokenDto()
+            {
+                AccessToken = accessToken,
+                ExpiredIn = tokenExpiration.TotalSeconds,
+                IsFilled = isFilled,
+                TokenType = "bearer",
+                UserId = id
+            };
+           
         
 
-            return tokenResponse;
+            return result;
         }
 
         // POST api/Account/Register

@@ -39,7 +39,8 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                                     EmailStamp = x.User.EmailStamp,
                                     Id = x.User.Id,
                                     PasswordHash = x.User.Password,
-                                    UserName = x.User.Email
+                                    UserName = x.User.Email,
+                                    IsFilled = x.User.Profile.IsFilled
                                 }
                         })
                 .ToListAsync();
