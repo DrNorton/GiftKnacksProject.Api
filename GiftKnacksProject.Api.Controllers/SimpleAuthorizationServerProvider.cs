@@ -47,13 +47,13 @@ namespace GiftKnacksProject.Api.Controllers
 
                 if (user == null)
                 {
-                    context.SetError("invalid_grant", "The user name doesnt Exist");
+                    context.SetError("invalid_grant", "The user name doesn't exist");
                     return;
                 }
                 var passwordCorrect = await userManager.CheckPasswordAsync(user, context.Password);
                 if (!passwordCorrect)
                 {
-                    context.SetError("invalid_grant", "The password is fake");
+                    context.SetError("invalid_grant", "The password is incorrect");
                     return;
                 }
 
