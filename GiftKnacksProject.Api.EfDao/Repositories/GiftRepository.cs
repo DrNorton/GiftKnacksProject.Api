@@ -132,7 +132,8 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                             {
                                 FirstName = x.Wish.User.Profile.FirstName,
                                 Id = x.Wish.User.Id,
-                                LastName = x.Wish.User.Profile.LastName
+                                LastName = x.Wish.User.Profile.LastName,
+                                TargetId = x.Wish.Id
                             }),
                 Creator =
                     new CreatorDto()

@@ -156,10 +156,6 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
             var updatedResult = await _wishRepository.UpdateWish(userId, updatedWish);
             return SuccessApiResult(updatedResult);
         }
-
-
-        
-
-
+    
     }
 }

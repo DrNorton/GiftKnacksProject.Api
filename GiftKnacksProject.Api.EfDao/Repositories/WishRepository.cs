@@ -174,7 +174,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                             {
                                 FirstName = x.Gift.User.Profile.FirstName,
                                 Id = x.Gift.User.Id,
-                                LastName = x.Gift.User.Profile.LastName
+                                LastName = x.Gift.User.Profile.LastName,
                             }),
                 Creator =
                     new CreatorDto()
