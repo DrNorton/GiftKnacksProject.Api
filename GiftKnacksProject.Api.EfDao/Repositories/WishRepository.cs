@@ -175,6 +175,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                                 FirstName = x.Gift.User.Profile.FirstName,
                                 Id = x.Gift.User.Id,
                                 LastName = x.Gift.User.Profile.LastName,
+                                Target = new TargetLinkItem() { TargetId = x.Gift.Id, Type = "gift", TargetName = x.Gift.Name }
                             }),
                 Creator =
                     new CreatorDto()
