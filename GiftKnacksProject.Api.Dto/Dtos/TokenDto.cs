@@ -19,7 +19,8 @@ namespace GiftKnacksProject.Api.Dto.Dtos
         public bool IsFilled { get; set; }
         [JsonProperty("userId")]
         public long UserId { get; set; }
-        [JsonProperty("error")]
+        [JsonProperty("isSocial")]
+        public bool IsSocial { get; set; }
         public string Error { get; set; }
         [JsonProperty("error_description")]
         public string ErrorDescription { get; set; }

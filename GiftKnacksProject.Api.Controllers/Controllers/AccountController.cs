@@ -187,7 +187,8 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
                 ExpiredIn = tokenExpiration.TotalSeconds,
                 IsFilled = isFilled,
                 TokenType = "bearer",
-                UserId = id
+                UserId = id,
+                IsSocial=true
             };
            
         
