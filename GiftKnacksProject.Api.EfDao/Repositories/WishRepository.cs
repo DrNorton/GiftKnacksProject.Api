@@ -95,8 +95,10 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
                 }
                 if (!String.IsNullOrEmpty(filter.City))
                 {
-                    query = query.Where(x => x.Country1.Name.Contains(filter.City));
+                    query = query.Where(x => x.City.Contains(filter.City));
                 }
+
+                
 
                 if (!String.IsNullOrEmpty(filter.Category))
                 {
