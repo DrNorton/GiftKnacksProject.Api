@@ -220,6 +220,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
             gift.ToDate = dto.ToDate;
             gift.Location = dto.Location;
             gift.UserId = userId;
+            gift.CreatedTime=DateTime.Now;
             return gift;
         }
 

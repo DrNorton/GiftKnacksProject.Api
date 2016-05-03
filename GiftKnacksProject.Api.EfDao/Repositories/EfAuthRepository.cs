@@ -28,6 +28,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
             user.ConfirmMail = false;
             user.EmailStamp = appUser.EmailStamp;
             user.Profile = Db.Set<Profile>().Create();
+            user.Profile.CreatedTime=DateTime.Now;
             user.Profile.Id = user.Id;
             var newContact=Db.Set<Contact>().Create();
             newContact.ContactType = Db.Set<ContactType>().FirstOrDefault();

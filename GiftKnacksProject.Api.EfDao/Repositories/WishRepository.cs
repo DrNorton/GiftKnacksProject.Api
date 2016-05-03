@@ -252,6 +252,7 @@ namespace GiftKnacksProject.Api.EfDao.Repositories
             wish.Name = dto.Name;
             wish.Location = dto.Location;
             wish.GiftWishStatus = status;
+            wish.CreatedTime = DateTime.Now;
             return wish;
         }
 
