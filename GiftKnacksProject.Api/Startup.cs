@@ -100,10 +100,8 @@ namespace GiftKnacksProject.Api
         public static IWindsorContainer ConfigureWindsor(HttpConfiguration configuration)
         {
             var container = CastleInstaller.Install();
-           
             var dependencyResolver = new WindsorDependencyResolver(container);
             configuration.DependencyResolver = dependencyResolver;
-
             return container;
         }    
     }
