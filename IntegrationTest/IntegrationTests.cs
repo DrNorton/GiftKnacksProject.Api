@@ -1,38 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Dispatcher;
 using GiftKnacksProject.Api;
+using GiftKnacksProject.Api.Controllers.Models;
+using IntegrationTest.Helpers;
 using Microsoft.Owin.Hosting;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Microsoft.Owin.Testing;
+using Newtonsoft.Json;
+using NUnit.Framework;
 
 namespace IntegrationTest
 {
-    [TestClass]
+    [TestFixture]
     public class IntegrationTests
     {
-        public class TestAssembliesResolver : IAssembliesResolver
-        {
-            public ICollection<Assembly> GetAssemblies()
-            {
-                return AppDomain.CurrentDomain.GetAssemblies();
-            }
-        }
-
-        [TestMethod]
-        public void TestMethod1()
+       [SetUp]
+        public void SetUp()
         {
             GlobalConfiguration.Configuration.Services.Replace(typeof(IAssembliesResolver),
-        new TestAssembliesResolver());
-           
-            using (var webApp = WebApp.Start<Startup>("http://localhost:9443/"))
+       new TestAssembliesResolver());
+            
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            
+        }
+
+        [Test]
+        public async void TestMethod1()
+        {
+            using (var server = TestServer.Create<Startup>())
             {
+                
                 // Execute test against the web API.
-                webApp.Dispose();
-                Assert.IsTrue(true);
+                var test = JsonConvert.SerializeObject(new IdModel() {Id = 1});
+                var result = await server.HttpClient.GetAsync("/api/test/getSettings");
             }
+
+           
+            Assert.IsTrue(true);
+            
         }
     }
 }
