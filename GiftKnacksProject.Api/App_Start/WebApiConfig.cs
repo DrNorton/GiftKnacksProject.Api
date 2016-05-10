@@ -20,7 +20,7 @@ namespace FamilyTasks.Api
             // Web API routes
             config.MapHttpAttributeRoutes();
             config.EnableCors();
-            GlobalConfiguration.Configuration.Services.Replace(typeof(IHttpControllerActivator),
+            config.Services.Replace(typeof(IHttpControllerActivator),
                 new WindsorCompositionRoot(container));
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
@@ -31,13 +31,11 @@ namespace FamilyTasks.Api
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.Converters.Add(new IsoDateTimeConverter());
-
-            var json = GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+          
+            var json = config.Formatters.JsonFormatter;
             json.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
             var filter = container.Resolve<IFilter>();
-            System.Web.Http.GlobalConfiguration.Configuration.Filters.Add(container.Resolve<IFilter>());
-
-
+            config.Filters.Add(container.Resolve<IFilter>());
         }
     }
 

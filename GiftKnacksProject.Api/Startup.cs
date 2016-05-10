@@ -47,16 +47,10 @@ namespace GiftKnacksProject.Api
         {
             HookConnectionStrings();
             var config = new HttpConfiguration();
-            var container = ConfigureWindsor(GlobalConfiguration.Configuration);
-            GlobalConfiguration.Configure(
-                c =>
-                {
-                    AuthConfig.Register(app, container);
-                    WebApiConfig.Register(c, container);
-                    SwaggerConfig.Register(c);
-                }
-                );
-
+            var container = ConfigureWindsor(config);
+            AuthConfig.Register(app, container);
+            WebApiConfig.Register(config, container);
+            SwaggerConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
             app.Map("/signalr", map =>
@@ -75,7 +69,7 @@ namespace GiftKnacksProject.Api
                 };
                 map.RunSignalR(hubConfiguration);
             });
-           
+
         }
 
         

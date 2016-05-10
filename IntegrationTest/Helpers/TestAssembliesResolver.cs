@@ -12,7 +12,8 @@ namespace IntegrationTest.Helpers
     {
         public ICollection<Assembly> GetAssemblies()
         {
-            return AppDomain.CurrentDomain.GetAssemblies();
+            var assemblies= AppDomain.CurrentDomain.GetAssemblies();
+            return assemblies;
         }
     }
 }
