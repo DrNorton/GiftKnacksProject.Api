@@ -138,7 +138,9 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Helpers\TestAssembliesResolver.cs" />
-    <Compile Include="IntegrationTests.cs" />
+    <Compile Include="Models\ApiStandartResponse.cs" />
+    <Compile Include="Tests\Integrational\SettingsTest.cs" />
+    <Compile Include="Tests\Integrational\BaseTestClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -27,16 +27,12 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
         [System.Web.Http.HttpGet]
         public async Task<IHttpActionResult> GetSettings()
         {
-            var list=new List<Tuple<string,string>>();
+            var list=new List<ApiSetting>();
             var settings=ConfigurationManager.AppSettings;
             foreach (var sett in settings.AllKeys)
             {
-               list.Add(new Tuple<string, string>(sett, settings.Get(sett)));
+               list.Add(new ApiSetting(sett, settings.Get(sett)));
             }
-            var strings = ConfigurationManager.ConnectionStrings;
-
-            
-
             return SuccessApiResult(list);
         }
 
@@ -52,6 +48,19 @@ namespace GiftKnacksProject.Api.Controllers.Controllers
 
 
         
+    }
+
+
+    public class ApiSetting
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
+
+        public ApiSetting(string key,string value)
+        {
+            Key = key;
+            Value = value;
+        }
     }
 
     public class TestResult
